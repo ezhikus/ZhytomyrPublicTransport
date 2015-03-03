@@ -3,8 +3,8 @@ import QtQuick.Controls 1.2
 
 Rectangle {
     id: startScreenRoot
-    width: parent.width
-    height: parent.height
+    width: 480
+    height: 800
 
     GroupBox {
         id: dataLoadingState
