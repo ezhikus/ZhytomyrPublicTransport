@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import "API.js" as API
 
 Rectangle {
     width: 480
@@ -25,6 +26,10 @@ Rectangle {
                 horizontalAlignment: Text.AlignRight
                 font.pixelSize: 20
                 color: "white"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: API.updateTransportScreen()
+                }
             }
         }
 
@@ -43,19 +48,17 @@ Rectangle {
             Flow {
                 anchors.fill: parent
                 anchors.margins: 4
-                spacing: 10
+                spacing: 5
 
                 Repeater {
                     model: ListModel {
-                        ListElement { name: "Alice" }
-                        ListElement { name: "Bob" }
-                        ListElement { name: "Jane" }
-                        ListElement { name: "Harry" }
-                        ListElement { name: "Wendy" }
+                        id: busesList
                     }
-                    Button { text: name }
+                    Button { text: shortName }
                 }
             }
+
+            Component.onCompleted: API.updateTransportScreen();
         }
 
         Text {

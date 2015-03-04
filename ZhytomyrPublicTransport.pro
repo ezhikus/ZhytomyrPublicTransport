@@ -19,4 +19,5 @@ DISTFILES += \
     qml/StartScreen.qml \
     qml/SelectTransportScreen.qml \
     qml/RouteScreen.qml \
-    qml/BusStopScreen.qml
+    qml/BusStopScreen.qml \
+    qml/API.js

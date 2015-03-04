@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import "content/calculator.js" as CalcEngine
+
 
 Rectangle {
     id: startScreenRoot
