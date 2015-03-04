@@ -6,5 +6,6 @@
         <file>RouteScreen.qml</file>
         <file>BusStopScreen.qml</file>
         <file>API.js</file>
+        <file>Header.qml</file>
     </qresource>
 </RCC>

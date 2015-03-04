@@ -7,29 +7,13 @@ Rectangle {
     height: 800
 
     Column {
-        id: column1
         anchors.fill: parent
 
-        Rectangle {
-            id: header
-            height: parent.height / 10
-            width: parent.width
-            color: "red"
+        Component.onCompleted: API.updateTransportScreen();
 
-            Text {
-                id: text1
-                text: qsTr("Обновить")
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                anchors.verticalCenter: parent.verticalCenter
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: 20
-                color: "white"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: API.updateTransportScreen()
-                }
+        Header {
+            function onRefreshButtonClicked() {
+                API.updateTransportScreen()
             }
         }
 
@@ -57,13 +41,11 @@ Rectangle {
                     Button { text: shortName }
                 }
             }
-
-            Component.onCompleted: API.updateTransportScreen();
         }
 
         Text {
             id: trolleyBusesLabel
-            text: qsTr("Троллейбуси")
+            text: qsTr("Тролейбуси")
             font.pixelSize: 25
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -76,17 +58,13 @@ Rectangle {
             Flow {
                 anchors.fill: parent
                 anchors.margins: 4
-                spacing: 10
+                spacing: 5
 
                 Repeater {
                     model: ListModel {
-                        ListElement { name: "Alice" }
-                        ListElement { name: "Bob" }
-                        ListElement { name: "Jane" }
-                        ListElement { name: "Harry" }
-                        ListElement { name: "Wendy" }
+                        id: trolleybusesList
                     }
-                    Button { text: name }
+                    Button { text: shortName }
                 }
             }
         }
