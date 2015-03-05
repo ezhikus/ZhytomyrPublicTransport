@@ -1,0 +1,34 @@
+Запрос всех маршрутов
+GET http://zhytomyr.dozor-gps.com.ua/get_data?type=6 HTTP/1.1
+Accept-Encoding: gzip, deflate, sdch
+Host: zhytomyr.dozor-gps.com.ua
+Connection: keep-alive
+Cookie: gts.web.guid=-1;
+
+Запрос всех остановок
+GET http://zhytomyr.dozor-gps.com.ua/get_data?type=7 HTTP/1.1
+Accept-Encoding: gzip, deflate, sdch
+Host: zhytomyr.dozor-gps.com.ua
+Connection: keep-alive
+Cookie: gts.web.guid=-1
+
+Запрос графа соединений между остановками
+GET http://zhytomyr.dozor-gps.com.ua/get_data?type=11 HTTP/1.1
+Host: zhytomyr.dozor-gps.com.ua
+Accept-Encoding: gzip, deflate, sdch
+Cookie: gts.web.guid=-1
+
+
+Запрос прибытия маршрутки №37 на остановку №19 (Автовокзал)
+GET http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param=8062-8063-8064 HTTP/1.1
+Accept-Encoding: gzip, deflate, sdch
+Host: zhytomyr.dozor-gps.com.ua
+Connection: keep-alive
+Cookie: gts.web.guid=-1
+
+и на остановку №20 (м-н Привокзальный)
+http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param=8063-8064-8065 HTTP/1.1
+Accept-Encoding: gzip, deflate, sdch
+Host: zhytomyr.dozor-gps.com.ua
+Connection: keep-alive
+Cookie: gts.web.guid=-1
