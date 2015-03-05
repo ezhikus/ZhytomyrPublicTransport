@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
-import "content/calculator.js" as CalcEngine
 
 
 Rectangle {
@@ -29,6 +28,7 @@ Rectangle {
             y: 436
             width: 342
             height: 23
+            indeterminate: true
             anchors.horizontalCenterOffset: 2
             activeFocusOnTab: false
             anchors.horizontalCenter: parent.horizontalCenter

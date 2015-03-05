@@ -8,7 +8,10 @@ ApplicationWindow {
     height: 800
     visible: true
 
-    StartScreen {
-        anchors.fill: parent
+    StackView {
+        id: mainStackView
+        initialItem: SelectTransportScreen {
+            anchors.fill: parent
+        }
     }
 }

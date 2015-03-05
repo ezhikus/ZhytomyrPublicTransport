@@ -16,9 +16,9 @@ include(deployment.pri)
 
 DISTFILES += \
     qml/main.qml \
-    qml/StartScreen.qml \
     qml/SelectTransportScreen.qml \
     qml/RouteScreen.qml \
     qml/BusStopScreen.qml \
     qml/API.js \
-    qml/Header.qml
+    qml/Header.qml \
+    qml/UpdateDataScreen.qml

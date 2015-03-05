@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "API.js" as API
 
 Rectangle {
     width: 480
@@ -8,68 +9,39 @@ Rectangle {
         id: column1
         anchors.fill: parent
 
-        Rectangle {
-            id: header
-            height: parent.height / 10
-            width: parent.width
-            color: "red"
-
-            Text {
-                id: text1
-                text: qsTr("Оновити")
-                anchors.right: parent.right
-                anchors.rightMargin: 25
-                anchors.verticalCenter: parent.verticalCenter
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignRight
-                font.pixelSize: 20
-                color: "white"
+        Header {
+            function onRefreshButtonClicked() {
+                API.updateRouteInfo()
             }
         }
 
-        ListView {
-            id: listView1
-            width: 110
-            height: 160
-            model: ListModel {
-                ListElement {
-                    name: "Grey"
-                    colorCode: "grey"
+        Rectangle {
+            height: parent.height / 10 * 4
+            width: parent.width
+            ListView {
+                id: view
+                anchors.margins: 10
+                anchors.fill: parent
+                model:  ListModel {
+                    id: routeInfo
                 }
 
-                ListElement {
-                    name: "Red"
-                    colorCode: "red"
-                }
+                delegate: Item {
+                    width: 80
+                    height: 100
+                    Row {
+                        id: row1
+                        Rectangle {
+                            width: 40
+                            height: 80
+                            color: "blue"
+                        }
 
-                ListElement {
-                    name: "Blue"
-                    colorCode: "blue"
-                }
-
-                ListElement {
-                    name: "Green"
-                    colorCode: "green"
-                }
-            }
-            delegate: Item {
-                x: 5
-                width: 80
-                height: 40
-                Row {
-                    id: row1
-                    Rectangle {
-                        width: 40
-                        height: 40
-                        color: colorCode
+                        Text {
+                            text: stopName
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                     }
-
-                    Text {
-                        text: name
-                        font.bold: true
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    spacing: 10
                 }
             }
         }

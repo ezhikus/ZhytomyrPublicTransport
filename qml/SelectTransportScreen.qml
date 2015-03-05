@@ -9,11 +9,11 @@ Rectangle {
     Column {
         anchors.fill: parent
 
-        Component.onCompleted: API.updateTransportScreen();
+        Component.onCompleted: API.updateTransportInfo();
 
         Header {
             function onRefreshButtonClicked() {
-                API.updateTransportScreen()
+                API.updateTransportInfo()
             }
         }
 
@@ -28,6 +28,7 @@ Rectangle {
             id: buses
             height: parent.height / 10 * 4
             width: parent.width
+
 
             Flow {
                 anchors.fill: parent
