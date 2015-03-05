@@ -1,3 +1,19 @@
+var testApiEndpoints = {
+    transportInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/TransportInfo.txt",
+    busStopsGraphURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/BusStopsGraph.txt",
+    routeInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/RouteInfo.txt",
+    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt"
+}
+
+var productinEndpoints = {
+    transportInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=6",
+    busStopsGraphURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=11",
+    routeInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=7",
+    arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
+}
+
+var apiEndpoints = testApiEndpoints
+
 function updateTransportInfo() {
     busesList.clear()
     busesList.append({shortName: "37"})
