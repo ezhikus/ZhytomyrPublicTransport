@@ -1,0 +1,15 @@
+{
+  "hash": -1633821541,
+  "values": [
+    {
+      "deviceId": 2691,
+      "departureTime": 478885379,
+      "arrivalIntervalTime": 225
+    },
+    {
+      "deviceId": 2584,
+      "departureTime": 478885807,
+      "arrivalIntervalTime": 492
+    }
+  ]
+}
