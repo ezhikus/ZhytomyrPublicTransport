@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>StartScreen.qml</file>
         <file>SelectTransportScreen.qml</file>
         <file>RouteScreen.qml</file>
         <file>BusStopScreen.qml</file>
         <file>API.js</file>
         <file>Header.qml</file>
+        <file>UpdateDataScreen.qml</file>
     </qresource>
 </RCC>

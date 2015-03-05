@@ -15,15 +15,25 @@ var productinEndpoints = {
 var apiEndpoints = testApiEndpoints
 
 function updateTransportInfo() {
-    busesList.clear()
-    busesList.append({shortName: "37"})
-    busesList.append({shortName: "40"})
-    busesList.append({shortName: "53"})
-
-    trolleybusesList.clear()
-    trolleybusesList.append({shortName: "1"})
-    trolleybusesList.append({shortName: "2"})
-    trolleybusesList.append({shortName: "3"})
+    makeRequst(apiEndpoints.transportInfoURL,
+               function(result) {
+                var data = JSON.parse(result)
+                busesList.clear()
+                trolleybusesList.clear()
+                for (var i = 0; i < data.values.length; ++i) {
+                    if (data.values[i]["countDevicesGroups"] === 1 && data.values[i]["shortName"].length !== 0) {
+                        busesList.append({shortName: data.values[i]["shortName"],
+                                          name: data.values[i]["name"],
+                                          id: data.values[i]["id"]});
+                    } else if (data.values[i]["countDevicesGroups"] === 0 && data.values[i]["shortName"].length !== 0) {
+                        trolleybusesList.append({shortName: data.values[i]["shortName"],
+                                          name: data.values[i]["name"],
+                                          id: data.values[i]["id"]});
+                    }
+                }
+                mainStackView.pop();
+               },
+               function(result) {console.log(result)})
 }
 
 function updateRouteInfo() {
@@ -39,4 +49,24 @@ function updateBusStopInfo() {
     busStopInfo.append({arrivalTime: 55})
     busStopInfo.append({arrivalTime: 158})
     busStopInfo.append({arrivalTime: 300})
+}
+
+
+function makeRequst(request, okCallback, errCallback) {
+    var doc = new XMLHttpRequest()
+
+    doc.onreadystatechange = function() {
+        if (doc.readyState === XMLHttpRequest.DONE) {
+            var resObj = {}
+            if (doc.status == 200) {
+                okCallback(doc.responseText)
+            } else { // Error
+                errCallback(doc.responseText)
+            }
+        }
+    }
+
+    doc.open("GET", request, true)
+    doc.setRequestHeader("gts.web.guid", "-1")
+    doc.send()
 }

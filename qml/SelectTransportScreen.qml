@@ -5,13 +5,23 @@ import "API.js" as API
 Rectangle {
     width: 480
     height: 800
+    property bool isInitialized : false
 
     Column {
         anchors.fill: parent
 
-        Component.onCompleted: API.updateTransportInfo();
+        Component.onCompleted: {
+            if (isInitialized == false) {
+                API.updateTransportInfo();
+                isInitialized = true;
+            }
+        }
 
         Header {
+            function onBackButtonClicked() {
+                Qt.quit()
+            }
+
             function onRefreshButtonClicked() {
                 API.updateTransportInfo()
             }
