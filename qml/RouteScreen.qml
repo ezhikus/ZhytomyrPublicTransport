@@ -1,15 +1,26 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.2
 import "API.js" as API
 
 Rectangle {
+    id: routeScreen
     width: 480
     height: 800
 
-
+    property int routeId: -1
+    property string routeShortName: ""
+    property string routeName: ""
+    property bool initialized: false
 
     Column {
-        id: column1
         anchors.fill: parent
+
+        Component.onCompleted: {
+            if (initialized === false) {
+                API.updateRouteInfo();
+                initialized = true;
+            }
+        }
 
         Header {
             function onBackButtonClicked() {
@@ -21,9 +32,26 @@ Rectangle {
             }
         }
 
+        Text {
+            id: routeNumberLabel
+            text: qsTr("№") + routeShortName
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 35
+        }
+
+        Text {
+            id: text1
+            text: routeName
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 20
+        }
+
         Rectangle {
-            height: parent.height / 10 * 4
             width: parent.width
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
             ListView {
                 id: view
                 anchors.margins: 10
@@ -38,14 +66,13 @@ Rectangle {
                     Row {
                         id: row1
                         Rectangle {
-                            width: 40
+                            width: parent.width
                             height: 80
                             color: "blue"
-                        }
 
-                        Text {
-                            text: stopName
-                            anchors.verticalCenter: parent.verticalCenter
+                            Button {
+                                text : "test"
+                            }
                         }
                     }
                 }

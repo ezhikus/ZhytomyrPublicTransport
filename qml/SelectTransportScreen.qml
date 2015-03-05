@@ -25,39 +25,70 @@ Rectangle {
             }
 
             function onRefreshButtonClicked() {
+                mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"))
                 API.updateTransportInfo()
             }
         }
 
-        Text {
-            id: busesLabel
-            text: qsTr("Маршрутки")
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 25
+        ListModel {
+            id: busesList
         }
 
-        Rectangle {
-            id: buses
-            height: parent.height / 10 * 4
-            width: parent.width
+        ListModel {
+            id: trolleybusesList
+        }
+
+        Component {
+            id: transportGroup
+
+            Rectangle {
+                property string transportGroupTitle: "Title"
+                Text {
+                    id: busesLabel
+                    text: transportGroupTitle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 25
+                }
+
+                Rectangle {
+                    id: buses
+                    height: parent.height / 10 * 4
+                    width: parent.width
 
 
-            Flow {
-                anchors.fill: parent
-                anchors.margins: 4
-                spacing: 5
+                    Flow {
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        spacing: 5
 
-                Repeater {
-                    model: ListModel {
-                        id: busesList
-                    }
-                    Button {
-                        text: shortName
-                        onClicked: {
-                            mainStackView.push(Qt.resolvedUrl("RouteScreen.qml"))
+                        Repeater {
+                            model: busesList
+                            Button {
+                                text: shortName
+                                onClicked: {
+                                    var routeScreen = Qt.resolvedUrl("RouteScreen.qml")
+                                    mainStackView.push({
+                                                    item:routeScreen,
+                                                    properties:{
+                                                               routeId: id,
+                                                               routeShortName: shortName,
+                                                               routeName: name
+                                                    }
+                                    })
+                                }
+                            }
                         }
                     }
                 }
+            }
+        }
+
+        Loader {
+            id: loader
+            sourceComponent: transportGroup;
+            onStatusChanged: {
+                if (loader.status == Loader.Ready)
+                    item.transportGroupTitle = "Маршрутки"
             }
         }
 
@@ -68,7 +99,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Rectangle {
+        /*Rectangle {
             id: trolleyBuses
             height: parent.height / 10 * 4
             width: parent.width
@@ -79,13 +110,11 @@ Rectangle {
                 spacing: 5
 
                 Repeater {
-                    model: ListModel {
-                        id: trolleybusesList
-                    }
+                    model:trolleybusesList
                     Button { text: shortName }
                 }
             }
-        }
+        }*/
     }
 }
 
