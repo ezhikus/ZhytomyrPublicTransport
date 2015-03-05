@@ -18,6 +18,8 @@ Rectangle {
         }
 
         Header {
+            leftButtonText: qsTr("Вихід")
+
             function onBackButtonClicked() {
                 Qt.quit()
             }
@@ -49,7 +51,12 @@ Rectangle {
                     model: ListModel {
                         id: busesList
                     }
-                    Button { text: shortName }
+                    Button {
+                        text: shortName
+                        onClicked: {
+                            mainStackView.push(Qt.resolvedUrl("RouteScreen.qml"))
+                        }
+                    }
                 }
             }
         }

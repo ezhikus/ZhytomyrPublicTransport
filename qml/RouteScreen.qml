@@ -5,11 +5,17 @@ Rectangle {
     width: 480
     height: 800
 
+
+
     Column {
         id: column1
         anchors.fill: parent
 
         Header {
+            function onBackButtonClicked() {
+                mainStackView.pop()
+            }
+
             function onRefreshButtonClicked() {
                 API.updateRouteInfo()
             }

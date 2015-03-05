@@ -6,7 +6,10 @@ Rectangle {
     width: parent.width
     color: "red"
 
+    property alias leftButtonText: leftButton.text
+
     Text {
+        id: leftButton
         text: qsTr("Назад")
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
@@ -21,6 +24,7 @@ Rectangle {
     }
 
     Text {
+        id: rightHeaderButton
         text: qsTr("Оновити")
         anchors.right: parent.right
         anchors.rightMargin: 0
