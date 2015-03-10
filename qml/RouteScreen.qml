@@ -14,7 +14,7 @@ Rectangle {
 
     Component.onCompleted: {
         if (initialized === false) {
-            API.updateRouteInfo();
+            API.updateRouteInfo(routeId);
             initialized = true;
         }
     }
@@ -26,7 +26,7 @@ Rectangle {
         }
 
         function onRefreshButtonClicked() {
-            API.updateRouteInfo()
+            API.updateRouteInfo(routeId)
         }
     }
 
@@ -54,22 +54,24 @@ Rectangle {
         anchors.topMargin: 0
         model: ListModel {
             id: routeInfo
+            ListElement {
+                name: "ffdsfsd"
+            }
         }
 
         delegate:
             Button {
-            text : stopName
+            text : name
             onClicked: {
                 var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
                 mainStackView.push({
                     item: busStopScreen,
                     properties:{
-                        busStopId: 3,
-                        busStopName: "name"
+                        busStopId: id,
+                        busStopName: name
                     }
                 })
             }
         }
     }
 }
-

@@ -13,6 +13,8 @@ var productinEndpoints = {
 }
 
 var apiEndpoints = testApiEndpoints
+var routesInfo = []
+var currentRouteId = -1
 
 function updateTransportInfo() {
     makeRequst(apiEndpoints.transportInfoURL,
@@ -36,11 +38,50 @@ function updateTransportInfo() {
                function(result) {console.log(result)})
 }
 
-function updateRouteInfo() {
-    routeInfo.clear()
-    routeInfo.append({stopName: "Малікова"})
-    routeInfo.append({stopName: "Новопівнічна"})
-    routeInfo.append({stopName: "Дастор"})
+function updateRouteInfo(routeId) {
+    function updateCurrentRouteInfo_() {
+        var tmpRouteInfo = []
+        for (var i = 0; i < routesInfo.length; ++i) {
+            if (routesInfo[i].routeId !== currentRouteId)
+                continue;
+            tmpRouteInfo.push(routesInfo[i]);
+        }
+
+        tmpRouteInfo.sort(function(a,b) { return a.internalNumber - b.internalNumber});
+        routeInfo.clear();
+        for (var i = 0; i < tmpRouteInfo.length; ++i) {
+            routeInfo.append({
+                            id: tmpRouteInfo[i].id,
+                            routeId: tmpRouteInfo[i].routeId,
+                            internalNumber: tmpRouteInfo[i].internalNumber,
+                            name: tmpRouteInfo[i].name
+                        });
+        }
+    };
+
+    function updateRoutesInfo_(result) {
+        var data = JSON.parse(result);
+        routesInfo = [];
+        for (var i = 0; i < data.values.length; ++i) {
+            routesInfo.push({
+                             id: data.values[i]["id"],
+                             routeId: data.values[i]["routeId"],
+                             internalNumber: data.values[i]["internalNumber"],
+                             name: data.values[i]["name"]
+                         });
+        }
+        updateCurrentRouteInfo_();
+    };
+
+    currentRouteId = routeId;
+
+    if (routesInfo.length == 0) {
+        makeRequst(apiEndpoints.routeInfoURL,
+                   updateRoutesInfo_,
+                   function(result) {console.log(result)})
+    }else{
+        updateCurrentRouteInfo_();
+    }
 }
 
 
