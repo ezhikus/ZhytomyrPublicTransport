@@ -20,6 +20,7 @@ Rectangle {
     }
 
     Header {
+        id: routeScreenHeader
         function onBackButtonClicked() {
             mainStackView.pop()
         }
@@ -31,9 +32,9 @@ Rectangle {
 
     Text {
         id: routeNumberLabel
-        x: 229
-        y: 80
         text: "№"
+        anchors.top: routeScreenHeader.bottom
+        anchors.topMargin: 0
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 20
@@ -53,14 +54,21 @@ Rectangle {
         anchors.topMargin: 0
         model: ListModel {
             id: routeInfo
-            ListElement {
-                stopName: "Test"
-            }
         }
 
         delegate:
             Button {
             text : stopName
+            onClicked: {
+                var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
+                mainStackView.push({
+                    item: busStopScreen,
+                    properties:{
+                        busStopId: 3,
+                        busStopName: "name"
+                    }
+                })
+            }
         }
     }
 }
