@@ -10,6 +10,10 @@ Rectangle {
 
     Header {
         id: busStopHeader
+        function onBackButtonClicked() {
+            mainStackView.pop()
+        }
+
         function onRefreshButtonClicked() {
             API.updateBusStopInfo()
         }
@@ -26,19 +30,19 @@ Rectangle {
 
     ListView {
         id: view
-        x: 0
-        y: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 100
         anchors.verticalCenter: parent.verticalCenter
-        anchors.top: parent.top
+        anchors.top: busStopNameLabel.bottom
         anchors.margins: 10
         model:  ListModel {
             id: busStopInfo
         }
 
         delegate: Item {
-            width: 80
             height: 100
             Row {
+                anchors.horizontalCenter: parent.horizontalCenter
                 id: row1
                 Text {
                     text: "До " + (index === 0 ? "найближчої" : "наступної") + " маршрутки: "
