@@ -32,7 +32,7 @@ Rectangle {
 
     Text {
         id: routeNumberLabel
-        text: "№"
+        text: routeName
         anchors.top: routeScreenHeader.bottom
         anchors.topMargin: 0
         horizontalAlignment: Text.AlignHCenter

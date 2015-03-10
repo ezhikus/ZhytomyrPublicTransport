@@ -17,7 +17,7 @@ Rectangle {
 
     Text {
         id: busStopNameLabel
-        text: busStopName
+        text: qsTr("Textfsdf")
         anchors.top: busStopHeader.bottom
         anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +51,5 @@ Rectangle {
                 }
             }
         }
-        }
-
+    }
 }
-
