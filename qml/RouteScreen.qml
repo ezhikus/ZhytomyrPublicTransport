@@ -12,71 +12,55 @@ Rectangle {
     property string routeName: ""
     property bool initialized: false
 
-    Column {
-        anchors.fill: parent
+    Component.onCompleted: {
+        if (initialized === false) {
+            API.updateRouteInfo();
+            initialized = true;
+        }
+    }
 
-        Component.onCompleted: {
-            if (initialized === false) {
-                API.updateRouteInfo();
-                initialized = true;
+    Header {
+        function onBackButtonClicked() {
+            mainStackView.pop()
+        }
+
+        function onRefreshButtonClicked() {
+            API.updateRouteInfo()
+        }
+    }
+
+    Text {
+        id: routeNumberLabel
+        x: 229
+        y: 80
+        text: "№"
+        horizontalAlignment: Text.AlignHCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: 20
+    }
+
+    ListView {
+        id: view
+        x: 0
+        y: 104
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: routeNumberLabel.bottom
+        anchors.topMargin: 0
+        model: ListModel {
+            id: routeInfo
+            ListElement {
+                stopName: "Test"
             }
         }
 
-        Header {
-            function onBackButtonClicked() {
-                mainStackView.pop()
-            }
-
-            function onRefreshButtonClicked() {
-                API.updateRouteInfo()
-            }
-        }
-
-        Text {
-            id: routeNumberLabel
-            text: qsTr("№") + routeShortName
-            horizontalAlignment: Text.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 35
-        }
-
-        Text {
-            id: text1
-            text: routeName
-            horizontalAlignment: Text.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 20
-        }
-
-        Rectangle {
-            width: parent.width
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            ListView {
-                id: view
-                anchors.margins: 10
-                anchors.fill: parent
-                model:  ListModel {
-                    id: routeInfo
-                }
-
-                delegate: Item {
-                    width: 80
-                    height: 100
-                    Row {
-                        id: row1
-                        Rectangle {
-                            width: parent.width
-                            height: 80
-                            color: "blue"
-
-                            Button {
-                                text : "test"
-                            }
-                        }
-                    }
-                }
-            }
+        delegate:
+            Button {
+            text : stopName
         }
     }
 }
