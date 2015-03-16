@@ -17,6 +17,8 @@ var routesInfo = []
 var currentRouteId = -1
 
 function updateTransportInfo() {
+    busesList.clear()
+    trolleybusesList.clear()
     makeRequst(apiEndpoints.transportInfoURL,
                function(result) {
                 var data = JSON.parse(result)
@@ -73,6 +75,7 @@ function updateRouteInfo(routeId) {
         updateCurrentRouteInfo_();
     };
 
+    routeInfo.clear();
     currentRouteId = routeId;
 
     if (routesInfo.length == 0) {

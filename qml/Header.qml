@@ -1,38 +1,42 @@
 import QtQuick 2.0
+import "UI.js" as UI
 
 Rectangle {
     id: header
-    height: parent.height / 10
-    width: parent.width
+    height: UI.UI.height / 8
+    anchors.left: parent.left
+    anchors.right: parent.right
     color: "red"
 
-    property alias leftButtonText: leftButton.text
-
-    Text {
+    Image {
         id: leftButton
-        text: qsTr("Назад")
+        width: height
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignLeft
-        font.pixelSize: 20
-        color: "white"
+        anchors.leftMargin: 0
+        source: "../res/arrow-left-bold.png"
+
         MouseArea {
             anchors.fill: parent
             onClicked: header.onBackButtonClicked()
         }
     }
 
-    Text {
-        id: rightHeaderButton
-        text: qsTr("Оновити")
+
+    Image {
+        id: rightButton
+        width: height
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-        anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: 20
-        color: "white"
+        source: "../res/refresh.png"
+
         MouseArea {
             anchors.fill: parent
             onClicked: header.onRefreshButtonClicked()

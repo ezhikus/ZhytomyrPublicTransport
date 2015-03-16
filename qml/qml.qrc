@@ -7,5 +7,8 @@
         <file>API.js</file>
         <file>Header.qml</file>
         <file>UpdateDataScreen.qml</file>
+        <file>UI.js</file>
+        <file>../res/arrow-left-bold.png</file>
+        <file>../res/refresh.png</file>
     </qresource>
 </RCC>

@@ -21,4 +21,5 @@ DISTFILES += \
     qml/BusStopScreen.qml \
     qml/API.js \
     qml/Header.qml \
-    qml/UpdateDataScreen.qml
+    qml/UpdateDataScreen.qml \
+    qml/UI.js

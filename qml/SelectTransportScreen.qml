@@ -1,10 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+
 import "API.js" as API
+import "UI.js" as UI
 
 Rectangle {
-    width: 480
-    height: 800
+    width: UI.UI.width
+    height: UI.UI.height
     property bool isInitialized : false
 
     Column {
@@ -18,8 +20,6 @@ Rectangle {
         }
 
         Header {
-            leftButtonText: qsTr("Вихід")
-
             function onBackButtonClicked() {
                 Qt.quit()
             }
@@ -33,7 +33,7 @@ Rectangle {
             id: busesLabel
             text: qsTr("Маршрутки")
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 25
+            font.pixelSize: parent.height / 20
         }
 
         Rectangle {
@@ -72,7 +72,7 @@ Rectangle {
         Text {
             id: trolleyBusesLabel
             text: qsTr("Тролейбуси")
-            font.pixelSize: 25
+            font.pixelSize: parent.height / 20
             anchors.horizontalCenter: parent.horizontalCenter
         }
 

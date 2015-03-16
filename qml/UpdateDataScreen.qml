@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
+import "UI.js" as UI
 
 Rectangle {
     id: startScreenRoot
-    width: 480
-    height: 800
+    width: UI.UI.width
+    height: UI.UI.height
 
     GroupBox {
         id: dataLoadingState

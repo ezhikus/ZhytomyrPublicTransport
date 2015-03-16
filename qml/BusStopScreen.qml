@@ -1,10 +1,11 @@
 import QtQuick 2.0
 import "API.js" as API
+import "UI.js" as UI
 
 Rectangle {
     id: rectangle2
-    width: 480
-    height: 800
+    width: UI.UI.width
+    height: UI.UI.height
     property int busStopId
     property string busStopName
 
@@ -32,9 +33,8 @@ Rectangle {
         id: busStopNameLabel
         text: busStopName
         anchors.top: busStopHeader.bottom
-        anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: 20
+        font.pixelSize: parent.height / 40
     }
 
     ListView {
