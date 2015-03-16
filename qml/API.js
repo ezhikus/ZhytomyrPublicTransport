@@ -2,7 +2,7 @@ var testApiEndpoints = {
     transportInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/TransportInfo.txt",
     busStopsGraphURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/BusStopsGraph.txt",
     routeInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/RouteInfo.txt",
-    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt"
+    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt?param="
 }
 
 var productinEndpoints = {
@@ -51,7 +51,7 @@ function updateRouteInfo(routeId) {
         routeInfo.clear();
         for (var i = 0; i < tmpRouteInfo.length; ++i) {
             routeInfo.append({
-                            id: tmpRouteInfo[i].id,
+                            busStopId: tmpRouteInfo[i].id,
                             routeId: tmpRouteInfo[i].routeId,
                             internalNumber: tmpRouteInfo[i].internalNumber,
                             name: tmpRouteInfo[i].name
@@ -85,11 +85,21 @@ function updateRouteInfo(routeId) {
 }
 
 
-function updateBusStopInfo() {
-    busStopInfo.clear()
-    busStopInfo.append({arrivalTime: 55})
-    busStopInfo.append({arrivalTime: 158})
-    busStopInfo.append({arrivalTime: 300})
+function updateBusStopInfo(busStopId) {
+    function updateBusStopInfo_(result) {
+        var data = JSON.parse(result);
+
+        for (var i = 0; i < data.values.length; ++i) {
+            busStopInfo.append({
+                                arrivalTime: data.values[i].arrivalIntervalTime
+                             });
+        }
+    }
+
+    busStopInfo.clear();
+    makeRequst(apiEndpoints.arrivalInfoURL + (busStopId - 1) + '-' + busStopId + '-' + (busStopId + 1),
+               updateBusStopInfo_,
+               function(result) {console.log(result)})
 }
 
 

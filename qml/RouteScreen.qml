@@ -54,9 +54,6 @@ Rectangle {
         anchors.topMargin: 0
         model: ListModel {
             id: routeInfo
-            ListElement {
-                name: "ffdsfsd"
-            }
         }
 
         delegate:
@@ -67,7 +64,7 @@ Rectangle {
                 mainStackView.push({
                     item: busStopScreen,
                     properties:{
-                        busStopId: id,
+                        busStopId: busStopId,
                         busStopName: name
                     }
                 })

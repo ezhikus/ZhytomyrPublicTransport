@@ -8,6 +8,15 @@ Rectangle {
     property int busStopId
     property string busStopName
 
+    property bool initialized: false
+
+    Component.onCompleted: {
+        if (initialized === false) {
+            API.updateBusStopInfo(busStopId);
+            initialized = true;
+        }
+    }
+
     Header {
         id: busStopHeader
         function onBackButtonClicked() {
@@ -15,13 +24,13 @@ Rectangle {
         }
 
         function onRefreshButtonClicked() {
-            API.updateBusStopInfo()
+            API.updateBusStopInfo(busStopId)
         }
     }
 
     Text {
         id: busStopNameLabel
-        text: qsTr("Textfsdf")
+        text: busStopName
         anchors.top: busStopHeader.bottom
         anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
