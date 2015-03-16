@@ -12,7 +12,7 @@ var productinEndpoints = {
     arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
 }
 
-var apiEndpoints = testApiEndpoints
+var apiEndpoints = productinEndpoints
 var routesInfo = []
 var currentRouteId = -1
 
@@ -97,7 +97,7 @@ function updateBusStopInfo(busStopId) {
     }
 
     busStopInfo.clear();
-    makeRequst(apiEndpoints.arrivalInfoURL + (busStopId - 1) + '-' + busStopId + '-' + (busStopId + 1),
+    makeRequst(apiEndpoints.arrivalInfoURL + (busStopId - 2) + '-' + (busStopId - 1) + '-' + busStopId,
                updateBusStopInfo_,
                function(result) {console.log(result)})
 }
@@ -118,6 +118,6 @@ function makeRequst(request, okCallback, errCallback) {
     }
 
     doc.open("GET", request, true)
-    doc.setRequestHeader("gts.web.guid", "-1")
+    doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
     doc.send()
 }
