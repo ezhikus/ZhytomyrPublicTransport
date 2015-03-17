@@ -14,10 +14,12 @@ Rectangle {
     property string routeName: ""
     property bool initialized: false
 
-    Component.onCompleted: {
-        if (initialized === false) {
-            API.updateRouteInfo(routeId);
-            initialized = true;
+    Stack.onStatusChanged : {
+        if (Stack.status == Stack.Active) {
+            if (initialized === false) {
+                    API.updateRouteInfo(routeId);
+                    initialized = true;
+                }
         }
     }
 
