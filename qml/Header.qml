@@ -4,9 +4,12 @@ import "UI.js" as UI
 Rectangle {
     id: header
     height: UI.UI.height / 8
+    width: UI.UI.width
     anchors.left: parent.left
     anchors.right: parent.right
     color: "red"
+
+    property alias leftButtonSource: leftButton.source
 
     Image {
         id: leftButton
@@ -17,7 +20,7 @@ Rectangle {
         anchors.bottomMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 0
-        source: "../res/arrow-left-bold.png"
+        source: "../res/ic_arrow_back_white_48dp.png"
 
         MouseArea {
             anchors.fill: parent
@@ -35,7 +38,7 @@ Rectangle {
         anchors.topMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-        source: "../res/refresh.png"
+        source: "../res/ic_autorenew_white_48dp.png"
 
         MouseArea {
             anchors.fill: parent

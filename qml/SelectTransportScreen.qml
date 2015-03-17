@@ -20,6 +20,7 @@ Rectangle {
         }
 
         Header {
+            leftButtonSource: '../res/ic_close_white_48dp.png'
             function onBackButtonClicked() {
                 Qt.quit()
             }
