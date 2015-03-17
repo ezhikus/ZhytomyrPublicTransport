@@ -94,7 +94,15 @@ Rectangle {
                     Button {
                         text: shortName
                         onClicked: {
-                            mainStackView.push(Qt.resolvedUrl("RouteScreen.qml"))
+                            var routeScreen = Qt.resolvedUrl("RouteScreen.qml")
+                            mainStackView.push({
+                                            item:routeScreen,
+                                            properties:{
+                                                       routeId: id,
+                                                       routeShortName: shortName,
+                                                       routeName: name
+                                            }
+                            })
                         }
                     }
                 }
