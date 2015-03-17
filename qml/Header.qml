@@ -11,6 +11,11 @@ Rectangle {
 
     property alias leftButtonSource: leftButton.source
 
+    function stopRefreshAnimation() {
+        rotationAnimation.running = false;
+        rightButton.rotation = 0;
+    }
+
     Image {
         id: leftButton
         width: height
@@ -40,9 +45,21 @@ Rectangle {
         anchors.rightMargin: 0
         source: "../res/ic_autorenew_white_48dp.png"
 
+        RotationAnimation on rotation {
+                id: rotationAnimation
+                loops: Animation.Infinite
+                from: 0
+                to: 360
+                duration: 1500
+                running: false
+            }
+
         MouseArea {
             anchors.fill: parent
-            onClicked: header.onRefreshButtonClicked()
+            onClicked: {
+                rotationAnimation.running = true
+                header.onRefreshButtonClicked()
+            }
         }
     }
 }
