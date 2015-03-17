@@ -6,14 +6,14 @@ Rectangle {
     id: rectangle2
     width: UI.UI.width
     height: UI.UI.height
-    property int busStopId
+    property string busStopParamString
     property string busStopName
 
     property bool initialized: false
 
     Component.onCompleted: {
         if (initialized === false) {
-            API.updateBusStopInfo(busStopId);
+            API.updateBusStopInfo(busStopParamString);
             initialized = true;
         }
     }
@@ -25,7 +25,7 @@ Rectangle {
         }
 
         function onRefreshButtonClicked() {
-            API.updateBusStopInfo(busStopId)
+            API.updateBusStopInfo(busStopParamString)
         }
     }
 

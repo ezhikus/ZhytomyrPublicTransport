@@ -50,7 +50,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.top: routeNumberLabel.bottom
         model: ListModel {
-            id: routeInfo
+            id: routeInfoModel
         }
 
         delegate:
@@ -64,7 +64,7 @@ Rectangle {
                 mainStackView.push({
                     item: busStopScreen,
                     properties:{
-                        busStopId: busStopId,
+                        busStopParamString: busStopParamString,
                         busStopName: name
                     }
                 })

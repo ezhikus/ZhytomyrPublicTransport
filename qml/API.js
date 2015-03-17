@@ -14,6 +14,7 @@ var productinEndpoints = {
 
 var apiEndpoints = productinEndpoints
 var routesInfo = []
+var routeInfo = []
 var currentRouteId = -1
 
 function updateTransportInfo() {
@@ -42,21 +43,30 @@ function updateTransportInfo() {
 
 function updateRouteInfo(routeId) {
     function updateCurrentRouteInfo_() {
-        var tmpRouteInfo = []
+        routeInfo = []
         for (var i = 0; i < routesInfo.length; ++i) {
             if (routesInfo[i].routeId !== currentRouteId)
                 continue;
-            tmpRouteInfo.push(routesInfo[i]);
+            routeInfo.push(routesInfo[i]);
         }
 
-        tmpRouteInfo.sort(function(a,b) { return a.internalNumber - b.internalNumber});
-        routeInfo.clear();
-        for (var i = 0; i < tmpRouteInfo.length; ++i) {
-            routeInfo.append({
-                            busStopId: tmpRouteInfo[i].id,
-                            routeId: tmpRouteInfo[i].routeId,
-                            internalNumber: tmpRouteInfo[i].internalNumber,
-                            name: tmpRouteInfo[i].name
+        routeInfo.sort(function(a,b) { return a.internalNumber - b.internalNumber});
+        routeInfoModel.clear();
+        for (var i = 0; i < routeInfo.length; ++i) {
+            var paramString = ''
+            if (i === 0)
+                paramString = routeInfo[i].id;
+            else if (i === 1)
+                paramString = routeInfo[i - 1].id + '-' + routeInfo[i].id;
+            else
+                paramString = routeInfo[i - 2].id + '-' +routeInfo[i - 1].id + '-' + routeInfo[i].id;
+
+            routeInfoModel.append({
+                            busStopId: routeInfo[i].id,
+                            routeId: routeInfo[i].routeId,
+                            internalNumber: routeInfo[i].internalNumber,
+                            name: routeInfo[i].name,
+                            busStopParamString: paramString.toString()
                         });
         }
     };
@@ -75,7 +85,7 @@ function updateRouteInfo(routeId) {
         updateCurrentRouteInfo_();
     };
 
-    routeInfo.clear();
+    routeInfoModel.clear();
     currentRouteId = routeId;
 
     if (routesInfo.length == 0) {
@@ -88,7 +98,7 @@ function updateRouteInfo(routeId) {
 }
 
 
-function updateBusStopInfo(busStopId) {
+function updateBusStopInfo(busStopParamString) {
     function updateBusStopInfo_(result) {
         var data = JSON.parse(result);
 
@@ -100,7 +110,8 @@ function updateBusStopInfo(busStopId) {
     }
 
     busStopInfo.clear();
-    makeRequst(apiEndpoints.arrivalInfoURL + (busStopId - 2) + '-' + (busStopId - 1) + '-' + busStopId,
+
+    makeRequst(apiEndpoints.arrivalInfoURL + busStopParamString,
                updateBusStopInfo_,
                function(result) {console.log(result)})
 }
