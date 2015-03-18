@@ -3,7 +3,7 @@ import "API.js" as API
 import "UI.js" as UI
 
 Rectangle {
-    id: rectangle2
+    id: bustStopScreen
     width: UI.UI.width
     height: UI.UI.height
     property string busStopParamString
@@ -34,7 +34,7 @@ Rectangle {
         text: busStopName
         anchors.top: busStopHeader.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: parent.height / 40
+        font.pixelSize: parent.height / 30
     }
 
     ListView {
@@ -52,15 +52,12 @@ Rectangle {
             height: 100
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                id: row1
                 Text {
-                    text: "До " + (index === 0 ? "найближчої" : "наступної") + " маршрутки: "
+                    property bool isItNearest: index === 0
+                    text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
                     anchors.verticalCenter: parent.verticalCenter
-                }
-
-                Text {
-                    text: Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
-                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: isItNearest ? bustStopScreen.height / 25 : bustStopScreen.height / 30
+                    font.bold: isItNearest
                 }
             }
         }
