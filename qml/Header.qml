@@ -11,10 +11,8 @@ Rectangle {
 
     property alias leftButtonSource: leftButton.source
 
-    function stopRefreshAnimation() {
-        rotationAnimation.running = false;
-        rightButton.rotation = 0;
-    }
+    signal leftButtonClicked
+    signal rightButtonClicked
 
     Image {
         id: leftButton
@@ -29,7 +27,7 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: header.onBackButtonClicked()
+            onClicked: header.leftButtonClicked()
         }
     }
 
@@ -57,8 +55,8 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                rotationAnimation.running = true
-                header.onRefreshButtonClicked()
+                //rotationAnimation.running = true
+                header.rightButtonClicked()
             }
         }
     }

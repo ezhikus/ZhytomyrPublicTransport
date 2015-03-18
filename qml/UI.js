@@ -1,4 +1,4 @@
 var UI = {
     width: 480,
-    height: 800
+    height: 854
 }

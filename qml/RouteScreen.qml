@@ -25,13 +25,8 @@ Rectangle {
 
     Header {
         id: routeScreenHeader
-        function onBackButtonClicked() {
-            mainStackView.pop()
-        }
-
-        function onRefreshButtonClicked() {
-            API.updateRouteInfo(routeId)
-        }
+        onLeftButtonClicked:  mainStackView.pop()
+        onRightButtonClicked: API.updateRouteInfo(routeId)
     }
 
     Text {

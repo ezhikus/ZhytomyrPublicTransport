@@ -22,13 +22,8 @@ Rectangle {
 
     Header {
         id: busStopHeader
-        function onBackButtonClicked() {
-            mainStackView.pop()
-        }
-
-        function onRefreshButtonClicked() {
-            API.updateBusStopInfo(busStopParamString)
-        }
+        onLeftButtonClicked:  mainStackView.pop()
+        onRightButtonClicked: API.updateBusStopInfo(busStopParamString)
     }
 
     Text {
