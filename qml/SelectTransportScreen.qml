@@ -31,14 +31,12 @@ Rectangle {
         }
 
         Text {
-            id: busesLabel
             text: qsTr("Маршрутки")
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: parent.height / 20
         }
 
         Rectangle {
-            id: buses
             height: parent.height / 10 * 4
             width: parent.width
 
@@ -71,14 +69,12 @@ Rectangle {
         }
 
         Text {
-            id: trolleyBusesLabel
             text: qsTr("Тролейбуси")
             font.pixelSize: parent.height / 20
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Rectangle {
-            id: trolleyBuses
             height: parent.height / 10 * 4
             width: parent.width
 
