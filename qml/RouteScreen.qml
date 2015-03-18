@@ -60,12 +60,13 @@ Rectangle {
             text : name
             anchors.left: parent.left
             anchors.right: parent.right
-            height: routeScreen.height / 10
+            height: Math.max(routeScreen.height / 10, 50)
             onClicked: {
                 var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
                 mainStackView.push({
                     item: busStopScreen,
                     properties:{
+                        routeShortName: routeScreen.routeShortName,
                         busStopParamString: busStopParamString,
                         busStopName: name
                     }

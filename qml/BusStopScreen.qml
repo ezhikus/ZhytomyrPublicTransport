@@ -6,6 +6,8 @@ Rectangle {
     id: bustStopScreen
     width: UI.UI.width
     height: UI.UI.height
+
+    property string routeShortName: ""
     property string busStopParamString
     property string busStopName
 
@@ -30,9 +32,18 @@ Rectangle {
     }
 
     Text {
+        id: routeShortNameLabel
+        text: "№ " + routeShortName
+        anchors.top: busStopHeader.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: parent.height / 30
+        font.bold: true
+    }
+
+    Text {
         id: busStopNameLabel
         text: busStopName
-        anchors.top: busStopHeader.bottom
+        anchors.top: routeShortNameLabel.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: parent.height / 30
     }
