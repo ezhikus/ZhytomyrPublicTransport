@@ -36,7 +36,7 @@ Rectangle {
         anchors.topMargin: 0
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: parent.height / 40
+        font.pixelSize: parent.width / 25
     }
 
     ListView {
@@ -55,7 +55,7 @@ Rectangle {
             text : name
             anchors.left: parent.left
             anchors.right: parent.right
-            height: Math.max(routeScreen.height / 10, 50)
+            height: routeScreenHeader.height
             onClicked: {
                 var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
                 mainStackView.push({

@@ -38,6 +38,7 @@ Rectangle {
                 Flow {
                     anchors.fill: parent
                     anchors.margins: 15
+                    anchors.topMargin: 0
                     spacing: 5
 
                     Repeater {
@@ -92,7 +93,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.margins: 20
-                rowSpacing: 20
+                rowSpacing: 10
                 columnSpacing: 20
                 flow:  selectTransportScreen.height < selectTransportScreen.width ? GridLayout.LeftToRight : GridLayout.TopToBottom
 
