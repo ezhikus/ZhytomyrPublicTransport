@@ -8,29 +8,26 @@ Rectangle {
     width: UI.UI.width
     height: UI.UI.height
 
-    GroupBox {
+    Rectangle {
         id: dataLoadingState
-        anchors.fill: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
 
         Text {
             id: dataLoadingLabel
-            x: 53
-            y: 282
             text: qsTr("Дані завантажуються")
-            anchors.horizontalCenterOffset: 2
-            font.pointSize: 26
+            anchors.verticalCenterOffset: 0 - height * 3
+            anchors.verticalCenter: parent.verticalCenter
+            font.pointSize: startScreenRoot.width * 0.07
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
         }
 
         ProgressBar {
-            id: dataLoadProgressBar
-            x: 53
-            y: 436
-            width: 342
-            height: 23
+            width: dataLoadingLabel.width
+            anchors.verticalCenter: parent.verticalCenter
             indeterminate: true
-            anchors.horizontalCenterOffset: 2
             activeFocusOnTab: false
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -42,7 +39,6 @@ Rectangle {
         anchors.fill: parent
 
         Button {
-            id: retryButton
             x: 99
             y: 389
             width: 241
@@ -52,7 +48,6 @@ Rectangle {
         }
 
         Text {
-            id: errorDataLoadLabel
             x: 53
             y: 282
             text: qsTr("Помилка завантаження даних")
