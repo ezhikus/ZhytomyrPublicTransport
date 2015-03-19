@@ -12,9 +12,18 @@ Rectangle {
             anchors.left = Qt.binding(function() { return parent.left; })
             anchors.right = Qt.binding(function() { return parent.right; })
         }
-    }
 
-    property alias leftButtonSource: leftButton.source
+        leftButton.source = Qt.binding(function() {
+            if (parent === null)
+                return '../res/ic_close_white_48dp.png';
+
+            if (typeof mainStackView === undefined || mainStackView.depth === 1)
+                return '../res/ic_close_white_48dp.png';
+
+
+            return '../res/ic_arrow_back_white_48dp.png';
+        })
+    }
 
     signal leftButtonClicked
     signal rightButtonClicked
@@ -25,11 +34,19 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        source: "../res/ic_arrow_back_white_48dp.png"
 
         MouseArea {
             anchors.fill: parent
-            onClicked: header.leftButtonClicked()
+            onClicked: {
+                if (mainStackView != null) {
+                    if (mainStackView.depth === 1)
+                        Qt.quit();
+                    else
+                        mainStackView.pop();
+                }
+
+                header.leftButtonClicked()
+            }
         }
     }
 

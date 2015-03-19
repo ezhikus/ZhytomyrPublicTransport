@@ -20,18 +20,20 @@ Rectangle {
         }
     }
 
-    Header {
-        id: busStopHeader
-        onLeftButtonClicked:  mainStackView.pop()
-        onRightButtonClicked: API.updateBusStopInfo(busStopParamString)
+    Connections {
+         target: header
+         onRightButtonClicked: {
+             if (mainStackView.currentItem === bustStopScreen)
+                API.updateBusStopInfo(busStopParamString);
+         }
     }
 
     Text {
         id: routeShortNameLabel
         text: "№ " + routeShortName
-        anchors.top: busStopHeader.bottom
+        anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: parent.height / 30
+        font.pixelSize: bustStopScreen.width / 10
         font.bold: true
     }
 
@@ -40,7 +42,7 @@ Rectangle {
         text: busStopName
         anchors.top: routeShortNameLabel.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: parent.height / 30
+        font.pixelSize: bustStopScreen.width / 12
     }
 
     ListView {
@@ -62,7 +64,7 @@ Rectangle {
                     property bool isItNearest: index === 0
                     text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: isItNearest ? bustStopScreen.height / 25 : bustStopScreen.height / 30
+                    font.pixelSize: isItNearest ? bustStopScreen.width / 20 : bustStopScreen.width / 25
                     font.bold: isItNearest
                 }
             }

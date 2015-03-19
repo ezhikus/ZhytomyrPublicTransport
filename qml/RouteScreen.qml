@@ -19,21 +19,21 @@ Rectangle {
             if (initialized === false) {
                     API.updateRouteInfo(routeId);
                     initialized = true;
-                }
+            }
         }
     }
 
-    Header {
-        id: routeScreenHeader
-        onLeftButtonClicked:  mainStackView.pop()
-        onRightButtonClicked: API.updateRouteInfo(routeId)
+    Connections {
+         target: header
+         onRightButtonClicked: {
+             if (mainStackView.currentItem === routeScreen)
+                API.updateRouteInfo(routeId);
+         }
     }
 
     Text {
         id: routeNumberLabel
         text: routeName
-        anchors.top: routeScreenHeader.bottom
-        anchors.topMargin: 0
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: parent.width / 25
@@ -55,7 +55,7 @@ Rectangle {
             text : name
             anchors.left: parent.left
             anchors.right: parent.right
-            height: routeScreenHeader.height
+            height: header.height
             onClicked: {
                 var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
                 mainStackView.push({

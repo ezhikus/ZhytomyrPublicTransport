@@ -11,6 +11,10 @@ ApplicationWindow {
     height: UI.UI.height
     visible: true
 
+    toolBar: Header {
+        id: header
+    }
+
     StackView {
         id: mainStackView
 

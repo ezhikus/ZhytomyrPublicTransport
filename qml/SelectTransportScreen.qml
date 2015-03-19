@@ -10,6 +10,7 @@ Rectangle {
     width: UI.UI.width
     height: UI.UI.height
     property bool isInitialized : false
+    property bool isVertical: selectTransportScreen.height > selectTransportScreen.width
 
     ListModel {
         id: busesList
@@ -28,12 +29,12 @@ Rectangle {
             Text {
                 id: groupLabel
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: header.height / 2.5
+                font.pixelSize: selectTransportScreen.width * 0.07
             }
 
             Rectangle {
-                height: selectTransportScreen.height > selectTransportScreen.width ? 0.35 * selectTransportScreen.height : 0.7 * selectTransportScreen.height
-                width: selectTransportScreen.height > selectTransportScreen.width ? selectTransportScreen.width : 0.45 * selectTransportScreen.width
+                height: isVertical ? 0.35 * selectTransportScreen.height : 0.7 * selectTransportScreen.height
+                width: isVertical ? selectTransportScreen.width : 0.45 * selectTransportScreen.width
 
                 Flow {
                     anchors.fill: parent
@@ -73,44 +74,38 @@ Rectangle {
             }
         }
 
-        Header {
-            id: header
-            leftButtonSource: '../res/ic_close_white_48dp.png'
-            onLeftButtonClicked:  Qt.quit()
-            onRightButtonClicked: API.updateTransportInfo()
+        Connections {
+             target: header
+             onRightButtonClicked: {
+                 if (mainStackView.currentItem === selectTransportScreen)
+                    API.updateTransportInfo();
+             }
         }
 
-        Rectangle {
-            anchors.top: header.bottom
+        GridLayout {
+            anchors.top: parent.top
+            anchors.topMargin: 0
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
+            anchors.margins: 20
+            rowSpacing: 10
+            columnSpacing: 20
+            flow:  isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
-            GridLayout {
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.margins: 20
-                rowSpacing: 10
-                columnSpacing: 20
-                flow:  selectTransportScreen.height < selectTransportScreen.width ? GridLayout.LeftToRight : GridLayout.TopToBottom
-
-                Loader {
-                    sourceComponent: transportGroup;
-                    onLoaded: {
-                        item.groupLabelText = qsTr("Маршрутки")
-                        item.buttonsCreateRepeaterModel = busesList
-                    }
+            Loader {
+                sourceComponent: transportGroup;
+                onLoaded: {
+                    item.groupLabelText = qsTr("Маршрутки")
+                    item.buttonsCreateRepeaterModel = busesList
                 }
+            }
 
-                Loader {
-                    sourceComponent: transportGroup;
-                    onLoaded: {
-                        item.groupLabelText = qsTr("Тролейбуси")
-                        item.buttonsCreateRepeaterModel = trolleybusesList
-                    }
+            Loader {
+                sourceComponent: transportGroup;
+                onLoaded: {
+                    item.groupLabelText = qsTr("Тролейбуси")
+                    item.buttonsCreateRepeaterModel = trolleybusesList
                 }
             }
         }
