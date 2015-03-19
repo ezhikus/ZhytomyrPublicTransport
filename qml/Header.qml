@@ -5,9 +5,14 @@ Rectangle {
     id: header
     height: UI.UI.height / 8
     width: UI.UI.width
-    anchors.left: parent.left
-    anchors.right: parent.right
     color: "red"
+
+    Component.onCompleted: {
+        if (parent !== null) {
+            anchors.left = Qt.binding(function() { return parent.left; })
+            anchors.right = Qt.binding(function() { return parent.right; })
+        }
+    }
 
     property alias leftButtonSource: leftButton.source
 
@@ -18,11 +23,8 @@ Rectangle {
         id: leftButton
         width: height
         anchors.top: parent.top
-        anchors.topMargin: 0
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
         anchors.left: parent.left
-        anchors.leftMargin: 0
         source: "../res/ic_arrow_back_white_48dp.png"
 
         MouseArea {
@@ -36,11 +38,8 @@ Rectangle {
         id: rightButton
         width: height
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
         anchors.top: parent.top
-        anchors.topMargin: 0
         anchors.right: parent.right
-        anchors.rightMargin: 0
         source: "../res/ic_autorenew_white_48dp.png"
 
         RotationAnimation on rotation {
