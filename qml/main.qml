@@ -21,14 +21,14 @@ ApplicationWindow {
         }
 
         leftButtonSource: {
-                if (parent === null)
-                    return closeButtonPath;
+            if (parent === null)
+                return closeButtonPath;
 
-                if (typeof mainStackView === undefined || mainStackView.depth === 1)
-                    return closeButtonPath;
+            if (typeof mainStackView === undefined || mainStackView.depth === 1)
+                return closeButtonPath;
 
 
-                return backButtonPath;
+            return backButtonPath;
         }
     }
 

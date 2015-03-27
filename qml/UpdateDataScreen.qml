@@ -19,7 +19,7 @@ Rectangle {
             text: qsTr("Дані завантажуються")
             anchors.verticalCenterOffset: 0 - height * 3
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: startScreenRoot.width * 0.07
+            font.pointSize: Math.max(parent.parent.width * 0.06, 1)
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
         }
