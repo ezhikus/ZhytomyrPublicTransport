@@ -13,6 +13,23 @@ ApplicationWindow {
 
     toolBar: Header {
         id: header
+        onLeftButtonClicked: {
+            if (mainStackView.depth === 1)
+                Qt.quit();
+            else
+                mainStackView.pop();
+        }
+
+        leftButtonSource: {
+                if (parent === null)
+                    return closeButtonPath;
+
+                if (typeof mainStackView === undefined || mainStackView.depth === 1)
+                    return closeButtonPath;
+
+
+                return backButtonPath;
+        }
     }
 
     StackView {

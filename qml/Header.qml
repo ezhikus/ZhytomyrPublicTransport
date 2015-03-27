@@ -7,26 +7,21 @@ Rectangle {
     width: UI.UI.width
     color: "red"
 
+    property string closeButtonPath: '../res/ic_close_white_48dp.png'
+    property string backButtonPath: '../res/ic_arrow_back_white_48dp.png'
+    property string updateButtonPath: '../res/ic_autorenew_white_48dp.png'
+
+    property alias leftButtonSource: leftButton.source
+
+    signal leftButtonClicked
+    signal rightButtonClicked
+
     Component.onCompleted: {
         if (parent !== null) {
             anchors.left = Qt.binding(function() { return parent.left; })
             anchors.right = Qt.binding(function() { return parent.right; })
         }
-
-        leftButton.source = Qt.binding(function() {
-            if (parent === null)
-                return '../res/ic_close_white_48dp.png';
-
-            if (typeof mainStackView === undefined || mainStackView.depth === 1)
-                return '../res/ic_close_white_48dp.png';
-
-
-            return '../res/ic_arrow_back_white_48dp.png';
-        })
     }
-
-    signal leftButtonClicked
-    signal rightButtonClicked
 
     Image {
         id: leftButton
@@ -34,17 +29,11 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
+        source: closeButtonPath
 
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if (mainStackView != null) {
-                    if (mainStackView.depth === 1)
-                        Qt.quit();
-                    else
-                        mainStackView.pop();
-                }
-
                 header.leftButtonClicked()
             }
         }
@@ -57,7 +46,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.top: parent.top
         anchors.right: parent.right
-        source: "../res/ic_autorenew_white_48dp.png"
+        source: updateButtonPath
 
         RotationAnimation on rotation {
                 id: rotationAnimation
