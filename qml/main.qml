@@ -27,7 +27,6 @@ ApplicationWindow {
             if (typeof mainStackView === undefined || mainStackView.depth === 1)
                 return closeButtonPath;
 
-
             return backButtonPath;
         }
     }

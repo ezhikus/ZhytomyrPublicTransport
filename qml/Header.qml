@@ -50,7 +50,6 @@ Rectangle {
 
         RotationAnimation on rotation {
                 id: rotationAnimation
-                loops: Animation.Infinite
                 from: 0
                 to: 360
                 duration: 1500
@@ -60,10 +59,44 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                //rotationAnimation.running = true
                 header.rightButtonClicked()
             }
         }
     }
+
+    states: [
+        State {
+            name: "Normal"
+
+            PropertyChanges {
+                target: rightButton
+                rotation: 0
+            }
+
+            PropertyChanges {
+                target: rotationAnimation
+                loops: 1
+            }
+
+        },
+        State {
+            name: "Updating"
+
+            PropertyChanges {
+                target: rightButton
+                rotation: 0
+            }
+
+            PropertyChanges {
+                target: rotationAnimation
+                loops: Animation.Infinite
+            }
+
+            PropertyChanges {
+                target: rotationAnimation
+                running: true
+            }
+        }
+    ]
 }
 

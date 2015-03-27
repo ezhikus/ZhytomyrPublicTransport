@@ -64,13 +64,25 @@ Rectangle {
         }
     }
 
+    function callUpdate() {
+        header.state = "Updating";
+        API.updateTransportInfo(
+            function() {
+                mainStackView.pop();
+                header.state = "Normal";
+            },
+            function() {
+                /*TODO: show FAIL display*/
+            });
+        isInitialized = true;
+    }
+
     Rectangle {
         anchors.fill: parent
 
         Component.onCompleted: {
             if (isInitialized == false) {
-                API.updateTransportInfo();
-                isInitialized = true;
+                selectTransportScreen.callUpdate();
             }
         }
 
@@ -78,7 +90,7 @@ Rectangle {
              target: header
              onRightButtonClicked: {
                  if (mainStackView.currentItem === selectTransportScreen)
-                    API.updateTransportInfo();
+                    selectTransportScreen.callUpdate();
              }
         }
 
