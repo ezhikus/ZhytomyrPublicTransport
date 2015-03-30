@@ -2,7 +2,8 @@ var testApiEndpoints = {
     transportInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/TransportInfo.txt",
     busStopsGraphURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/BusStopsGraph.txt",
     routeInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/RouteInfo.txt",
-    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt?param="
+    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt?param=",
+    arrivalInfoEmptyStubURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/ArrivalnfoEmptyStub.txt?param="
 }
 
 var productinEndpoints = {
@@ -12,7 +13,7 @@ var productinEndpoints = {
     arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
 }
 
-var apiEndpoints = testApiEndpoints
+var apiEndpoints = productinEndpoints
 
 function updateTransportInfo(okCallback, failCallback) {
     busesList.clear()
@@ -33,10 +34,10 @@ function updateTransportInfo(okCallback, failCallback) {
                                               id: data.values[i]["id"]});
                         }
                     }
-                    okCallback();
+                    okCallback()
                },
                function(result) {
-                   failCallback();
+                   failCallback()
                });
 }
 
@@ -78,35 +79,37 @@ function updateRouteInfo(routeId, okCallback, failCallback) {
                             internalNumber: routeInfo[i].internalNumber,
                             name: routeInfo[i].name,
                             busStopParamString: paramString.toString()
-                        });
+                        })
         }
         okCallback();
     };
 
-    routeInfoModel.clear();
+    routeInfoModel.clear()
 
     makeRequst(apiEndpoints.routeInfoURL,
                updateRoutesInfo_,
-               failCallback());
+               failCallback);
 }
 
 
-function updateBusStopInfo(busStopParamString) {
+function updateBusStopInfo(busStopParamString, okCallback, failCallback) {
     function updateBusStopInfo_(result) {
         var data = JSON.parse(result);
 
         for (var i = 0; i < data.values.length; ++i) {
             busStopInfo.append({
                                 arrivalTime: data.values[i].arrivalIntervalTime
-                             });
+                             })
         }
+
+        okCallback()
     }
 
-    busStopInfo.clear();
+    busStopInfo.clear()
 
     makeRequst(apiEndpoints.arrivalInfoURL + busStopParamString,
                updateBusStopInfo_,
-               function(result) {console.log(result)})
+               failCallback)
 }
 
 

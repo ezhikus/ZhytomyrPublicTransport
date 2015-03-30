@@ -11,8 +11,6 @@ Rectangle {
     property string busStopParamString
     property string busStopName
 
-    property bool initialized: false
-
     function callUpdate() {
         header.state = "Updating";
         noTransportLabel.visible = false;
@@ -25,11 +23,9 @@ Rectangle {
             function() {
                 /*TODO: show FAIL display*/
             });
-        initialized = true;
     }
 
     Component.onCompleted: {
-        if (initialized === false)
             bustStopScreen.callUpdate();
     }
 

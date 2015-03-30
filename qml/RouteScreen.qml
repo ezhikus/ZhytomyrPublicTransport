@@ -12,13 +12,10 @@ Rectangle {
     property int routeId: -1
     property string routeShortName: ""
     property string routeName: ""
-    property bool initialized: false
 
     Stack.onStatusChanged : {
         if (Stack.status == Stack.Active) {
-            if (initialized === false) {
-                routeScreen.callUpdate();
-            }
+            routeScreen.callUpdate();
         }
     }
 
@@ -31,7 +28,6 @@ Rectangle {
             function() {
                 /*TODO: show FAIL display*/
             });
-        initialized = true;
     }
 
 

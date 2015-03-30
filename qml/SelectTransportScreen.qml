@@ -9,7 +9,6 @@ Rectangle {
     id: selectTransportScreen
     width: UI.UI.width
     height: UI.UI.height
-    property bool isInitialized : false
     property bool isVertical: selectTransportScreen.height > selectTransportScreen.width
 
     ListModel {
@@ -74,16 +73,13 @@ Rectangle {
             function() {
                 /*TODO: show FAIL display*/
             });
-        isInitialized = true;
     }
 
     Rectangle {
         anchors.fill: parent
 
         Component.onCompleted: {
-            if (isInitialized == false) {
                 selectTransportScreen.callUpdate();
-            }
         }
 
         Connections {
