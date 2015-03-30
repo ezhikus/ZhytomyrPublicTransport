@@ -17,17 +17,29 @@ Rectangle {
     Stack.onStatusChanged : {
         if (Stack.status == Stack.Active) {
             if (initialized === false) {
-                    API.updateRouteInfo(routeId);
-                    initialized = true;
+                routeScreen.callUpdate();
             }
         }
     }
+
+    function callUpdate() {
+        header.state = "Updating";
+        API.updateRouteInfo(routeId,
+            function() {
+                header.state = "Normal";
+            },
+            function() {
+                /*TODO: show FAIL display*/
+            });
+        initialized = true;
+    }
+
 
     Connections {
          target: header
          onRightButtonClicked: {
              if (mainStackView.currentItem === routeScreen)
-                API.updateRouteInfo(routeId);
+                routeScreen.callUpdate();
          }
     }
 

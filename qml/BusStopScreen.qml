@@ -13,18 +13,31 @@ Rectangle {
 
     property bool initialized: false
 
+    function callUpdate() {
+        header.state = "Updating";
+        noTransportLabel.visible = false;
+        API.updateBusStopInfo(busStopParamString,
+            function() {
+                header.state = "Normal";
+                if (busStopInfo.count == 0)
+                    noTransportLabel.visible = true;
+            },
+            function() {
+                /*TODO: show FAIL display*/
+            });
+        initialized = true;
+    }
+
     Component.onCompleted: {
-        if (initialized === false) {
-            API.updateBusStopInfo(busStopParamString);
-            initialized = true;
-        }
+        if (initialized === false)
+            bustStopScreen.callUpdate();
     }
 
     Connections {
          target: header
          onRightButtonClicked: {
              if (mainStackView.currentItem === bustStopScreen)
-                API.updateBusStopInfo(busStopParamString);
+                bustStopScreen.callUpdate();
          }
     }
 
@@ -43,6 +56,20 @@ Rectangle {
         anchors.top: routeShortNameLabel.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: bustStopScreen.width / 12
+    }
+
+    Text {
+        id: noTransportLabel
+        text: "Від кінцевої зупинки до вашої на цьому маршруті транспорту зараз немає"
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        font.pixelSize: bustStopScreen.width / 20
+        font.bold: true
+        wrapMode: Text.WordWrap
+        horizontalAlignment : Text.AlignHCenter
+        height: 400
+        visible: false
     }
 
     ListView {

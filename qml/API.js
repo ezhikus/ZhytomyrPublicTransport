@@ -12,10 +12,7 @@ var productinEndpoints = {
     arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
 }
 
-var apiEndpoints = productinEndpoints
-var routesInfo = []
-var routeInfo = []
-var currentRouteId = -1
+var apiEndpoints = testApiEndpoints
 
 function updateTransportInfo(okCallback, failCallback) {
     busesList.clear()
@@ -43,18 +40,30 @@ function updateTransportInfo(okCallback, failCallback) {
                });
 }
 
-function updateRouteInfo(routeId) {
-    function updateCurrentRouteInfo_() {
-        routeInfo = []
-        for (var i = 0; i < routesInfo.length; ++i) {
-            if (routesInfo[i].routeId !== currentRouteId)
+function updateRouteInfo(routeId, okCallback, failCallback) {
+    function updateRoutesInfo_(result) {
+        var data = JSON.parse(result);
+        var routesInfo = []
+
+        for (var i = 0; i < data.values.length; ++i) {
+            routesInfo.push({
+                             id: data.values[i]["id"],
+                             routeId: data.values[i]["routeId"],
+                             internalNumber: data.values[i]["internalNumber"],
+                             name: data.values[i]["name"]
+                         });
+        }
+
+        var routeInfo = []
+        for (i = 0; i < routesInfo.length; ++i) {
+            if (routesInfo[i].routeId !== routeId)
                 continue;
             routeInfo.push(routesInfo[i]);
         }
 
         routeInfo.sort(function(a,b) { return a.internalNumber - b.internalNumber});
         routeInfoModel.clear();
-        for (var i = 0; i < routeInfo.length; ++i) {
+        for (i = 0; i < routeInfo.length; ++i) {
             var paramString = ''
             if (i === 0)
                 paramString = routeInfo[i].id;
@@ -71,32 +80,14 @@ function updateRouteInfo(routeId) {
                             busStopParamString: paramString.toString()
                         });
         }
-    };
-
-    function updateRoutesInfo_(result) {
-        var data = JSON.parse(result);
-        routesInfo = [];
-        for (var i = 0; i < data.values.length; ++i) {
-            routesInfo.push({
-                             id: data.values[i]["id"],
-                             routeId: data.values[i]["routeId"],
-                             internalNumber: data.values[i]["internalNumber"],
-                             name: data.values[i]["name"]
-                         });
-        }
-        updateCurrentRouteInfo_();
+        okCallback();
     };
 
     routeInfoModel.clear();
-    currentRouteId = routeId;
 
-    if (routesInfo.length == 0) {
-        makeRequst(apiEndpoints.routeInfoURL,
-                   updateRoutesInfo_,
-                   function(result) {console.log(result)})
-    }else{
-        updateCurrentRouteInfo_();
-    }
+    makeRequst(apiEndpoints.routeInfoURL,
+               updateRoutesInfo_,
+               failCallback());
 }
 
 
