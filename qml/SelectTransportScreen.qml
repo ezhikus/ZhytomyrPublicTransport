@@ -82,14 +82,6 @@ Rectangle {
                 selectTransportScreen.callUpdate();
         }
 
-        Connections {
-             target: header
-             onRightButtonClicked: {
-                 if (mainStackView.currentItem === selectTransportScreen)
-                    selectTransportScreen.callUpdate();
-             }
-        }
-
         GridLayout {
             anchors.top: parent.top
             anchors.topMargin: 0

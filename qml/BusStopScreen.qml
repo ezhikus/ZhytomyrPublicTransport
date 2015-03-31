@@ -29,14 +29,6 @@ Rectangle {
             bustStopScreen.callUpdate();
     }
 
-    Connections {
-         target: header
-         onRightButtonClicked: {
-             if (mainStackView.currentItem === bustStopScreen)
-                bustStopScreen.callUpdate();
-         }
-    }
-
     Text {
         id: routeShortNameLabel
         text: "№ " + routeShortName

@@ -13,10 +13,8 @@ Rectangle {
     property string routeShortName: ""
     property string routeName: ""
 
-    Stack.onStatusChanged : {
-        if (Stack.status == Stack.Active) {
-            routeScreen.callUpdate();
-        }
+    Component.onCompleted: {
+        routeScreen.callUpdate();
     }
 
     function callUpdate() {
@@ -28,15 +26,6 @@ Rectangle {
             function() {
                 /*TODO: show FAIL display*/
             });
-    }
-
-
-    Connections {
-         target: header
-         onRightButtonClicked: {
-             if (mainStackView.currentItem === routeScreen)
-                routeScreen.callUpdate();
-         }
     }
 
     Text {

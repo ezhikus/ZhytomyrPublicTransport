@@ -29,6 +29,10 @@ ApplicationWindow {
 
             return backButtonPath;
         }
+
+        onRightButtonClicked: {
+            mainStackView.currentItem.callUpdate()
+        }
     }
 
     StackView {
