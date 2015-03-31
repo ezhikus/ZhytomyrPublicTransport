@@ -33,12 +33,12 @@ Rectangle {
         text: routeName
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: parent.width / 25
+        font.pixelSize: parent.width * 0.04
     }
 
     ListView {
         id: view
-        anchors.topMargin: routeScreen.height / 10
+        anchors.topMargin: routeScreen.height * 0.1
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom

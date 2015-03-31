@@ -71,7 +71,10 @@ Rectangle {
                 header.state = "Normal";
             },
             function() {
-                /*TODO: show FAIL display*/
+                mainStackView.pop();
+                header.state = "Normal";
+                mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"));
+                mainStackView.currentItem.state = "ConnectionError"
             });
     }
 
@@ -79,7 +82,7 @@ Rectangle {
         anchors.fill: parent
 
         Component.onCompleted: {
-                selectTransportScreen.callUpdate();
+            selectTransportScreen.callUpdate();
         }
 
         GridLayout {

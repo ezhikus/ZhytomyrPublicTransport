@@ -3,7 +3,7 @@ import "UI.js" as UI
 
 Rectangle {
     id: header
-    height: UI.UI.height / 8
+    height: UI.UI.height * 0.12
     width: UI.UI.width
     color: "red"
 
