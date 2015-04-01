@@ -32,6 +32,7 @@ Rectangle {
     }
 
     Column {
+        id: column1
         anchors.fill: parent
 
         Text {
@@ -42,6 +43,7 @@ Rectangle {
         }
 
         Text {
+            id: busStopLabel
             text: busStopName
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
@@ -58,32 +60,26 @@ Rectangle {
             font.bold: true
             wrapMode: Text.WordWrap
             horizontalAlignment : Text.AlignHCenter
-            visible: true
+            visible: false
         }
 
         ListView {
-            id: view
+            height: parent.height * 0.6
+            spacing: height / (count * 2)
+            anchors.top: busStopLabel.bottom
+            anchors.topMargin: bustStopScreen.height * 0.1
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: bustStopScreen.height * 0.15
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.margins:  bustStopScreen.height * 0.01
             model:  ListModel {
                 id: busStopInfo
             }
 
-            delegate: Item {
-                height: bustStopScreen.height * 0.15
-                Row {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
+            delegate: Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
                         property bool isItNearest: index === 0
                         text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: isItNearest ? bustStopScreen.width * 0.05 : bustStopScreen.width * 0.04
+                        font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
                         font.bold: isItNearest
-                    }
-                }
-            }
+                      }
         }
     }
 }
