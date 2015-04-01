@@ -39,13 +39,12 @@ Rectangle {
                     anchors.fill: parent
                     anchors.margins: 0
                     anchors.topMargin: 5
-                    spacing: 2
+                    spacing: 0
 
                     Repeater {
                         id: buttonsCreateRepeater
                         Button {
                             text: shortName
-                            width: parent.width * 0.22
                             onClicked: {
                                 var routeScreen = Qt.resolvedUrl("RouteScreen.qml")
                                 mainStackView.push({

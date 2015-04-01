@@ -23,7 +23,7 @@ Rectangle {
             text: qsTr("Дані завантажуються")
             anchors.verticalCenterOffset: 0 - height * 2
             anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: updateDataScreen.width * 0.05
+            font.pixelSize: updateDataScreen.width * 0.08
             font.bold: true
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
