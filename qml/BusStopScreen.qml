@@ -9,9 +9,9 @@ Rectangle {
     width: UI.UI.width
     height: UI.UI.height
 
-    property string routeShortName: ""
+    property string routeShortName: "37"
     property string busStopParamString
-    property string busStopName
+    property string busStopName: "Тест тест тест тест"
 
     function callUpdate() {
         header.state = "Updating";
@@ -37,26 +37,28 @@ Rectangle {
         Text {
             text: "№ " + routeShortName
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: bustStopScreen.width * 0.1
+            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.1 : bustStopScreen.width * 0.1
             font.bold: true
         }
 
         Text {
             text: busStopName
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: bustStopScreen.width * 0.09
+            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
         }
 
         Text {
             id: noTransportLabel
-            text: "Від кінцевої зупинки до вашої на цьому маршруті транспорту зараз немає"
+            text: "Від кінцевої зупинки до даної на цьому маршруті транспорту зараз немає"
+            height: parent.height * 0.6
+            verticalAlignment: Text.AlignVCenter
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: bustStopScreen.width * 0.05
+            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
             font.bold: true
             wrapMode: Text.WordWrap
             horizontalAlignment : Text.AlignHCenter
-            visible: false
+            visible: true
         }
 
         ListView {
