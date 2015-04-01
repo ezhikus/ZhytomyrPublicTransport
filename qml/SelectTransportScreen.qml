@@ -28,7 +28,7 @@ Rectangle {
             Text {
                 id: groupLabel
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: selectTransportScreen.width * 0.07
+                font.pixelSize: isVertical ? selectTransportScreen.height * 0.05 : selectTransportScreen.height * 0.1
             }
 
             Rectangle {
@@ -37,14 +37,15 @@ Rectangle {
 
                 Flow {
                     anchors.fill: parent
-                    anchors.margins: 15
-                    anchors.topMargin: 0
-                    spacing: 5
+                    anchors.margins: 0
+                    anchors.topMargin: 5
+                    spacing: 2
 
                     Repeater {
                         id: buttonsCreateRepeater
                         Button {
                             text: shortName
+                            width: parent.width * 0.22
                             onClicked: {
                                 var routeScreen = Qt.resolvedUrl("RouteScreen.qml")
                                 mainStackView.push({
@@ -91,9 +92,9 @@ Rectangle {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            anchors.margins: 20
-            rowSpacing: 10
-            columnSpacing: 20
+            anchors.margins: parent.width * 0.05
+            rowSpacing: parent * 0.03
+            columnSpacing: parent.width * 0.05
             flow:  isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
             Loader {

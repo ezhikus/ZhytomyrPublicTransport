@@ -21,9 +21,9 @@ Rectangle {
         Text {
             id: dataLoadingLabel
             text: qsTr("Дані завантажуються")
-            anchors.verticalCenterOffset: 0 - height * 3
+            anchors.verticalCenterOffset: 0 - height * 2
             anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.width * 0.05
+            font.pixelSize: updateDataScreen.width * 0.05
             font.bold: true
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
@@ -38,7 +38,7 @@ Rectangle {
         }
     }
 
-    GroupBox {
+    Rectangle {
         id: connectionErrorState
         visible: false
         anchors.fill: parent
@@ -48,7 +48,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: parent.width * 0.05
+            font.pixelSize: updateDataScreen.width * 0.05
             font.bold: true
             wrapMode: Text.WordWrap
             horizontalAlignment : Text.AlignHCenter
@@ -60,6 +60,7 @@ Rectangle {
             height: parent.height * 0.1
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: 0 + parent.height * 0.1
             text: "Повторити"
 
             MouseArea {
