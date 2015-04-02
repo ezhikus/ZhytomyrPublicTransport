@@ -65,9 +65,9 @@ Rectangle {
 
         ListView {
             height: parent.height * 0.6
-            spacing: height / (count * 2)
+            spacing: bustStopScreen.height > bustStopScreen.width ? height / (count * 2) : height / (count * 4)
             anchors.top: busStopLabel.bottom
-            anchors.topMargin: bustStopScreen.height * 0.1
+            anchors.topMargin: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.1 : bustStopScreen.height * 0.05
             anchors.horizontalCenter: parent.horizontalCenter
             model:  ListModel {
                 id: busStopInfo
@@ -77,7 +77,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         property bool isItNearest: index === 0
                         text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
-                        font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
+                        font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.04 : bustStopScreen.width * 0.05
                         font.bold: isItNearest
                       }
         }
