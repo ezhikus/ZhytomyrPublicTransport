@@ -70,31 +70,17 @@ Rectangle {
             name: "Normal"
 
             PropertyChanges {
-                target: rightButton
-                rotation: 0
-            }
-
-            PropertyChanges {
                 target: rotationAnimation
+                running: true
                 loops: 1
             }
-
         },
         State {
             name: "Updating"
 
             PropertyChanges {
-                target: rightButton
-                rotation: 0
-            }
-
-            PropertyChanges {
                 target: rotationAnimation
                 loops: Animation.Infinite
-            }
-
-            PropertyChanges {
-                target: rotationAnimation
                 running: true
             }
         }
