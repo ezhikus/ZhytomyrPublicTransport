@@ -49,7 +49,7 @@ Rectangle {
 
         delegate:
             Button {
-            text : name
+            text : (index + 1) + '. ' + name
             anchors.left: parent.left
             anchors.right: parent.right
             height: header.height

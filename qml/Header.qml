@@ -20,7 +20,7 @@ Rectangle {
         if (parent !== null) {
             anchors.left = Qt.binding(function() { return parent.left; })
             anchors.right = Qt.binding(function() { return parent.right; })
-            height = Qt.binding(function() { return mainWindow.height * 0.1; })
+            height = Qt.binding(function() { return mainWindow.height > mainWindow.width ? mainWindow.height * 0.1 : mainWindow.height * 0.18; })
         }
     }
 

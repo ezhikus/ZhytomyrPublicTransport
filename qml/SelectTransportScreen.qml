@@ -33,13 +33,12 @@ Rectangle {
 
             Rectangle {
                 height: isVertical ? 0.35 * selectTransportScreen.height : 0.7 * selectTransportScreen.height
-                width: isVertical ? selectTransportScreen.width : 0.45 * selectTransportScreen.width
+                width: isVertical ? selectTransportScreen.width * 0.94 : 0.47 * selectTransportScreen.width
 
                 Flow {
                     anchors.fill: parent
                     anchors.margins: 0
-                    anchors.topMargin: 5
-                    spacing: 0
+                    spacing: isVertical ? selectTransportScreen.width * 0.008 : 0
 
                     Repeater {
                         id: buttonsCreateRepeater
@@ -93,7 +92,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.margins: parent.width * 0.05
             rowSpacing: parent * 0.03
-            columnSpacing: parent.width * 0.05
+            columnSpacing: parent.width * 0.03
             flow:  isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
             Loader {
