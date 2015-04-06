@@ -37,6 +37,17 @@ ApplicationWindow {
 
     StackView {
         id: mainStackView
+        focus: true
+
+        Keys.onReleased: {
+            if (event.key === Qt.Key_Back) {
+                if (mainStackView.depth === 1)
+                    Qt.quit();
+                else
+                    mainStackView.pop();
+                event.accepted = true;
+            }
+        }
 
         Component.onCompleted: {
             UI.UI.width = Screen.width
