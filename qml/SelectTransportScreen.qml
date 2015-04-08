@@ -77,11 +77,19 @@ Rectangle {
             });
     }
 
+    Timer {
+        id: updateDataTimer
+        interval: 1
+        running: false
+        repeat: false
+        onTriggered: selectTransportScreen.callUpdate()
+    }
+
     Rectangle {
         anchors.fill: parent
 
         Component.onCompleted: {
-            selectTransportScreen.callUpdate();
+            updateDataTimer.running = true
         }
 
         GridLayout {

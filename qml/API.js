@@ -127,7 +127,7 @@ function makeRequst(request, okCallback, errCallback) {
         }
     }
 
-    doc.open("GET", request, true)
+    doc.open("GET", request)
     doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
     doc.send()
 }
