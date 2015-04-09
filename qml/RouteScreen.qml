@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.3
 
 import "API.js" as API
 import "UI.js" as UI
@@ -38,21 +39,31 @@ Rectangle {
 
     ListView {
         id: view
-        anchors.topMargin: routeScreen.height * 0.1
+        clip: true
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.top: routeNumberLabel.bottom
+        anchors.topMargin: parent.height * 0.025
         model: ListModel {
             id: routeInfoModel
         }
 
         delegate:
             Button {
-            text : (index + 1) + '. ' + name
+            text : ' ' + (index + 1) + '. ' + name
             anchors.left: parent.left
             anchors.right: parent.right
             height: header.height
+            style: ButtonStyle {
+                    label: Text {
+                        font.pixelSize: routeScreen.width * 0.05
+                        text: control.text
+                        horizontalAlignment: Text.AlignLeft
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+
             onClicked: {
                 var busStopScreen = Qt.resolvedUrl("BusStopScreen.qml")
                 mainStackView.push({
