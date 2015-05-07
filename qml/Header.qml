@@ -29,6 +29,7 @@ Rectangle {
         width: height
         anchors { bottom: parent.bottom; top: parent.top; left: parent.left }
         source: closeButtonPath
+        asynchronous: true
 
         MouseArea {
             anchors.fill: parent
@@ -45,6 +46,7 @@ Rectangle {
         anchors { bottom: parent.bottom; top: parent.top; right: parent.right }
 
         source: updateButtonPath
+        asynchronous: true
 
         RotationAnimation on rotation {
                 id: rotationAnimation
