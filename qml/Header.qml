@@ -7,9 +7,9 @@ Rectangle {
     width: UI.UI.width
     color: "red"
 
-    property string closeButtonPath: '../res/ic_close_white_48dp.png'
-    property string backButtonPath: '../res/ic_arrow_back_white_48dp.png'
-    property string updateButtonPath: '../res/ic_autorenew_white_48dp.png'
+    property url closeButtonPath: '../res/ic_close_white_48dp.png'
+    property url backButtonPath: '../res/ic_arrow_back_white_48dp.png'
+    property url updateButtonPath: '../res/ic_autorenew_white_48dp.png'
 
     property alias leftButtonSource: leftButton.source
 
