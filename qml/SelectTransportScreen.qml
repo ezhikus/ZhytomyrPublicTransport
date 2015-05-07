@@ -11,6 +11,38 @@ Rectangle {
     height: UI.UI.height
     property bool isVertical: selectTransportScreen.height > selectTransportScreen.width
 
+    WorkerScript {
+       id: dataUpdateWorker
+       source: "Worker.js"
+       onMessage: {
+           if (messageObject.type === 'fail') {
+               mainStackView.pop()
+               header.state = "Normal"
+               mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"))
+               mainStackView.currentItem.state = "ConnectionError"
+           }
+           if (messageObject.type === 'clear') {
+               busesList.clear()
+               trolleybusesList.clear()
+           } else if(messageObject.type === 'addBus') {
+                busesList.append({
+                                     id: messageObject.id,
+                                     name: messageObject.name,
+                                     shortName: messageObject.shortName
+                                 })
+           }else if (messageObject.type === 'addTrolleybus') {
+               trolleybusesList.append({
+                                    id: messageObject.id,
+                                    name: messageObject.name,
+                                    shortName: messageObject.shortName
+                                })
+           }else if (messageObject.type === 'updateCompleted') {
+               mainStackView.pop()
+               header.state = "Normal"
+           }
+       }
+    }
+
     ListModel {
         id: busesList
     }
@@ -64,17 +96,7 @@ Rectangle {
 
     function callUpdate() {
         header.state = "Updating";
-        API.updateTransportInfo(
-            function() {
-                mainStackView.pop();
-                header.state = "Normal";
-            },
-            function() {
-                mainStackView.pop();
-                header.state = "Normal";
-                mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"));
-                mainStackView.currentItem.state = "ConnectionError"
-            });
+        dataUpdateWorker.sendMessage({'url' : API.apiEndpoints.transportInfoURL})
     }
 
     Rectangle {

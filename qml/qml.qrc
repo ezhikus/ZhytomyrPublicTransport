@@ -11,5 +11,6 @@
         <file>../res/ic_arrow_back_white_48dp.png</file>
         <file>../res/ic_autorenew_white_48dp.png</file>
         <file>../res/ic_close_white_48dp.png</file>
+        <file>Worker.js</file>
     </qresource>
 </RCC>

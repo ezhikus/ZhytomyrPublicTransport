@@ -15,32 +15,6 @@ var productinEndpoints = {
 
 var apiEndpoints = productinEndpoints
 
-function updateTransportInfo(okCallback, failCallback) {
-    busesList.clear()
-    trolleybusesList.clear()
-    makeRequst(apiEndpoints.transportInfoURL,
-               function(result) {
-                    var data = JSON.parse(result)
-                    busesList.clear()
-                    trolleybusesList.clear()
-                    for (var i = 0; i < data.values.length; ++i) {
-                        if (data.values[i]["countDevicesGroups"] === 1 && data.values[i]["shortName"].length !== 0) {
-                            busesList.append({shortName: data.values[i]["shortName"],
-                                              name: data.values[i]["name"],
-                                              id: data.values[i]["id"]});
-                        } else if (data.values[i]["countDevicesGroups"] === 0 && data.values[i]["shortName"].length !== 0) {
-                            trolleybusesList.append({shortName: data.values[i]["shortName"],
-                                              name: data.values[i]["name"],
-                                              id: data.values[i]["id"]});
-                        }
-                    }
-                    okCallback()
-               },
-               function(result) {
-                   failCallback()
-               });
-}
-
 function updateRouteInfo(routeId, okCallback, failCallback) {
     function updateRoutesInfo_(result) {
         var data = JSON.parse(result);
