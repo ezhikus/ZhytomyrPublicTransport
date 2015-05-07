@@ -27,9 +27,7 @@ Rectangle {
     Image {
         id: leftButton
         width: height
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors { bottom: parent.bottom; top: parent.top; left: parent.left }
         source: closeButtonPath
 
         MouseArea {
@@ -44,9 +42,8 @@ Rectangle {
     Image {
         id: rightButton
         width: height
-        anchors.bottom: parent.bottom
-        anchors.top: parent.top
-        anchors.right: parent.right
+        anchors { bottom: parent.bottom; top: parent.top; right: parent.right }
+
         source: updateButtonPath
 
         RotationAnimation on rotation {
