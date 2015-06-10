@@ -39,7 +39,7 @@ function updateTransportInfo(url, okCallback, failCallback) {
                function(result) {
                     var data = JSON.parse(result)
                     for (var i = 0; i < data.values.length; ++i) {
-                        if (data.values[i]["countDevicesGroups"] === 1 && data.values[i]["shortName"].length !== 0) {
+                        if (data.values[i]["countDevicesGroups"] > 0 && data.values[i]["shortName"].length !== 0) {
                             buses.push({shortName: data.values[i]["shortName"],
                                               name: data.values[i]["name"],
                                               id: data.values[i]["id"]});
