@@ -56,6 +56,7 @@ Rectangle {
         Column {
             property alias groupLabelText: groupLabel.text
             property alias buttonsCreateRepeaterModel: buttonsCreateRepeater.model
+            property double groupWidthCoef: 1
 
             Text {
                 id: groupLabel
@@ -64,13 +65,14 @@ Rectangle {
             }
 
             Rectangle {
-                height: isVertical ? 0.35 * selectTransportScreen.height : 0.7 * selectTransportScreen.height
-                width: isVertical ? selectTransportScreen.width * 0.94 : 0.47 * selectTransportScreen.width
+                id: groupRectangle
+                height: isVertical ? 0.42 * selectTransportScreen.height : 0.75 * selectTransportScreen.height
+                width: isVertical ? selectTransportScreen.width * 0.94 : 0.5 * selectTransportScreen.width * groupWidthCoef
 
                 Flow {
                     anchors.fill: parent
                     anchors.margins: 0
-                    spacing: isVertical ? selectTransportScreen.width * 0.008 : 0
+                    spacing: 0
 
                     Repeater {
                         id: buttonsCreateRepeater
@@ -130,6 +132,7 @@ Rectangle {
                 onLoaded: {
                     item.groupLabelText = qsTr("Тролейбуси")
                     item.buttonsCreateRepeaterModel = trolleybusesList
+                    item.groupWidthCoef = 0.7
                 }
             }
         }
