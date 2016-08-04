@@ -39,13 +39,13 @@ function updateTransportInfo(url, okCallback, failCallback) {
                function(result) {
                     var data = JSON.parse(result)
                     for (var i = 0; i < data.values.length; ++i) {
-                        if (data.values[i]["countDevicesGroups"] > 0 && data.values[i]["shortName"].length !== 0) {
-                            buses.push({shortName: data.values[i]["shortName"],
-                                              name: data.values[i]["name"],
+                        if (data.values[i]["inf"] === "{1}" && data.values[i]["sNm"].length !== 0) {
+                            buses.push({shortName: data.values[i]["sNm"],
+                                              name: data.values[i]["nm"],
                                               id: data.values[i]["id"]});
-                        } else if (data.values[i]["countDevicesGroups"] === 0 && data.values[i]["shortName"].length !== 0) {
-                            trolleybusses.push({shortName: data.values[i]["shortName"],
-                                              name: data.values[i]["name"],
+                        } else if (data.values[i]["inf"] === "{2}" && data.values[i]["sNm"].length !== 0) {
+                            trolleybusses.push({shortName: data.values[i]["sNm"],
+                                              name: data.values[i]["nm"],
                                               id: data.values[i]["id"]});
                         }
                     }
