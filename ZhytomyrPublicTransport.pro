@@ -1,6 +1,8 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets quickcontrols2
+
+CONFIG += qml_debug
 
 SOURCES += \
     src/main.cpp
