@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += \
-    src/main.cpp
+    src/main.cpp \
+    src/settings.cpp
 
 RESOURCES += \
     qml/qml.qrc
@@ -30,6 +31,10 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
     android/gradlew.bat \
-    qml/Worker.js
+    qml/Worker.js \
+    qml/Settings.js
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+HEADERS += \
+    src/settings.h
