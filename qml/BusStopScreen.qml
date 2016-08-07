@@ -38,7 +38,7 @@ Rectangle {
         Text {
             text: "№ " + routeShortName
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.1 : bustStopScreen.width * 0.1
+            font.pixelSize: bustStopScreen.height * 0.1
             font.bold: true
         }
 
@@ -46,7 +46,7 @@ Rectangle {
             id: busStopLabel
             text: busStopName
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
+            font.pixelSize: bustStopScreen.height * 0.05
         }
 
         Text {
@@ -56,7 +56,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.05 : bustStopScreen.width * 0.05
+            font.pixelSize: bustStopScreen.height * 0.05
             font.bold: true
             wrapMode: Text.WordWrap
             horizontalAlignment : Text.AlignHCenter
@@ -65,9 +65,9 @@ Rectangle {
 
         ListView {
             height: parent.height * 0.6
-            spacing: bustStopScreen.height > bustStopScreen.width ? height / (count * 2) : height / (count * 4)
+            spacing: height / (count * 2)
             anchors.top: busStopLabel.bottom
-            anchors.topMargin: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.1 : bustStopScreen.height * 0.05
+            anchors.topMargin: bustStopScreen.height * 0.1
             anchors.horizontalCenter: parent.horizontalCenter
             model:  ListModel {
                 id: busStopInfo
@@ -77,7 +77,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         property bool isItNearest: index === 0
                         text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
-                        font.pixelSize: bustStopScreen.height > bustStopScreen.width ? bustStopScreen.height * 0.04 : bustStopScreen.width * 0.05
+                        font.pixelSize: bustStopScreen.height * 0.04
                         font.bold: isItNearest
                       }
         }

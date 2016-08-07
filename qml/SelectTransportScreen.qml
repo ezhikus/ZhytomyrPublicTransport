@@ -7,9 +7,7 @@ import "UI.js" as UI
 
 Rectangle {
     id: selectTransportScreen
-    width: UI.UI.width
-    height: UI.UI.height
-    property bool isVertical: selectTransportScreen.height > selectTransportScreen.width
+    anchors.fill: parent
 
     WorkerScript {
        id: dataUpdateWorker
@@ -61,13 +59,13 @@ Rectangle {
             Text {
                 id: groupLabel
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: isVertical ? selectTransportScreen.height * 0.05 : selectTransportScreen.height * 0.1
+                font.pixelSize: selectTransportScreen.height
             }
 
             Rectangle {
                 id: groupRectangle
-                height: isVertical ? 0.42 * selectTransportScreen.height : 0.75 * selectTransportScreen.height
-                width: isVertical ? selectTransportScreen.width * 0.94 : 0.5 * selectTransportScreen.width * groupWidthCoef
+                height: 0.42 * selectTransportScreen.height
+                width: 0.94 * selectTransportScreen.width
 
                 Flow {
                     anchors.fill: parent
@@ -117,7 +115,7 @@ Rectangle {
             anchors.margins: parent.width * 0.05
             rowSpacing: parent * 0.03
             columnSpacing: parent.width * 0.03
-            flow:  isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
+            flow:  GridLayout.TopToBottom
 
             Loader {
                 sourceComponent: transportGroup;
