@@ -3,12 +3,9 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 
 import "API.js" as API
-import "UI.js" as UI
 
 ApplicationWindow {
     id: mainWindow
-    width: UI.UI.width
-    height: UI.UI.height
     visible: true
 
     toolBar: Header {
@@ -38,6 +35,7 @@ ApplicationWindow {
     StackView {
         id: mainStackView
         focus: true
+        anchors.fill: parent
 
         Keys.onReleased: {
             if (event.key === Qt.Key_Back) {
@@ -48,13 +46,19 @@ ApplicationWindow {
                 event.accepted = true;
             }
         }
+    }
 
-        Component.onCompleted: {
-            UI.UI.width = Screen.width
-            UI.UI.height = Screen.height
-
-            mainStackView.push(Qt.resolvedUrl("SelectTransportScreen.qml"))
-            mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"))
+    Component.onCompleted: {
+        if (Qt.platform.os === "android") {
+            width = Screen.width;
+            height = Screen.height;
+        } else
+        {
+            width = 480;
+            height = 854;
         }
+
+        mainStackView.push(Qt.resolvedUrl("SelectTransportScreen.qml"))
+        mainStackView.push(Qt.resolvedUrl("UpdateDataScreen.qml"))
     }
 }

@@ -1,12 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
-import "UI.js" as UI
-
 Rectangle {
     id: updateDataScreen
-    width: UI.UI.width
-    height: UI.UI.height
 
     function callUpdate() {
         mainStackView.get(mainStackView.depth - 2).callUpdate()

@@ -7,7 +7,6 @@
         <file>API.js</file>
         <file>Header.qml</file>
         <file>UpdateDataScreen.qml</file>
-        <file>UI.js</file>
         <file>../res/ic_arrow_back_white_48dp.png</file>
         <file>../res/ic_autorenew_white_48dp.png</file>
         <file>../res/ic_close_white_48dp.png</file>

@@ -2,12 +2,9 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import "API.js" as API
-import "UI.js" as UI
 
 Rectangle {
     id: bustStopScreen
-    width: UI.UI.width
-    height: UI.UI.height
 
     property string routeShortName: "37"
     property string busStopParamString

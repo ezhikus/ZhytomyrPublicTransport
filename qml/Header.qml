@@ -1,10 +1,9 @@
 import QtQuick 2.0
-import "UI.js" as UI
 
 Rectangle {
     id: header
-    height: UI.UI.height * 0.12
-    width: UI.UI.width
+    height: parent.height * 0.12
+    width: parent.width
     color: "red"
 
     property url closeButtonPath: '../res/ic_close_white_48dp.png'

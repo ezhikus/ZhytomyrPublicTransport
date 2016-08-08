@@ -3,12 +3,9 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.3
 
 import "API.js" as API
-import "UI.js" as UI
 
 Rectangle {
     id: routeScreen
-    width: UI.UI.width
-    height: UI.UI.height
 
     property int routeId: -1
     property string routeShortName: ""

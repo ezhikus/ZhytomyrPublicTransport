@@ -3,7 +3,6 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 import "API.js" as API
-import "UI.js" as UI
 
 Rectangle {
     id: selectTransportScreen
@@ -58,7 +57,7 @@ Rectangle {
             Text {
                 id: groupLabel
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: selectTransportScreen.height
+                font.pixelSize: selectTransportScreen.height * 0.1
             }
 
             Rectangle {
@@ -98,12 +97,12 @@ Rectangle {
         dataUpdateWorker.sendMessage({'url' : API.apiEndpoints.transportInfoURL})
     }
 
+    Component.onCompleted: {
+        selectTransportScreen.callUpdate()
+    }
+
     Rectangle {
         anchors.fill: parent
-
-        Component.onCompleted: {
-            selectTransportScreen.callUpdate()
-        }
 
         GridLayout {
             anchors.top: parent.top
