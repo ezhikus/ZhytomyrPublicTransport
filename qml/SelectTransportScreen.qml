@@ -7,7 +7,6 @@ import "UI.js" as UI
 
 Rectangle {
     id: selectTransportScreen
-    anchors.fill: parent
 
     WorkerScript {
        id: dataUpdateWorker

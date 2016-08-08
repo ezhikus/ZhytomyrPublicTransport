@@ -32,30 +32,6 @@ WorkerScript.onMessage = function(message) {
     updateTransportInfo(message.url, onOk, onFail);
 }
 
-function updateTransportInfo(url, okCallback, failCallback) {
-    var buses = []
-    var trolleybusses = []
-    makeRequst(url,
-               function(result) {
-                    var data = JSON.parse(result)
-                    for (var i = 0; i < data.values.length; ++i) {
-                        if (data.values[i]["inf"] === "{1}" && data.values[i]["sNm"].length !== 0) {
-                            buses.push({shortName: data.values[i]["sNm"],
-                                              name: data.values[i]["nm"],
-                                              id: data.values[i]["id"]});
-                        } else if (data.values[i]["inf"] === "{2}" && data.values[i]["sNm"].length !== 0) {
-                            trolleybusses.push({shortName: data.values[i]["sNm"],
-                                              name: data.values[i]["nm"],
-                                              id: data.values[i]["id"]});
-                        }
-                    }
-                    okCallback(buses, trolleybusses)
-               },
-               function(result) {
-                   failCallback()
-               });
-}
-
 function makeRequst(request, okCallback, errCallback) {
     var doc = new XMLHttpRequest()
 
@@ -74,3 +50,29 @@ function makeRequst(request, okCallback, errCallback) {
     doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
     doc.send()
 }
+
+function updateTransportInfo(url, okCallback, failCallback) {
+    var buses = [];
+    var trolleybusses = [];
+    makeRequst(url,
+               function(result) {
+                    var data = JSON.parse(result)
+                    for (var i = 0; i < data.data.length; ++i) {
+                        if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
+                            buses.push({shortName: data.data[i]["sNm"],
+                                              name: data.data[i]["nm"],
+                                              id: data.data[i]["id"]});
+                        } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
+                            trolleybusses.push({shortName: data.data[i]["sNm"],
+                                              name: data.data[i]["nm"],
+                                              id: data.data[i]["id"]});
+                        }
+                    }
+                    okCallback(buses, trolleybusses)
+               },
+               function(result) {
+                   failCallback()
+               });
+}
+
+
