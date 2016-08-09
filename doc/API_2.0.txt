@@ -5,7 +5,7 @@ Cookie: gts.web.city=zhytomyr
 
 {
   "hash": -1295936016,
-  "values": [
+  "data": [
     {
       "id": 550, // id маршрута
       "sNm": "1",
@@ -39,7 +39,7 @@ Cookie: gts.web.city=zhytomyr
 
 {
   "hash": 980562320,
-  "values": {
+  "data": {
     "a1": [
       {
         "rId": 606, // id маршрута
