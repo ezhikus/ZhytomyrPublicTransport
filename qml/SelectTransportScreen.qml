@@ -101,35 +101,31 @@ Rectangle {
         selectTransportScreen.callUpdate()
     }
 
-    Rectangle {
-        anchors.fill: parent
+    GridLayout {
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.margins: parent.width * 0.05
+        rowSpacing: parent * 0.03
+        columnSpacing: parent.width * 0.03
+        flow:  GridLayout.TopToBottom
 
-        GridLayout {
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.margins: parent.width * 0.05
-            rowSpacing: parent * 0.03
-            columnSpacing: parent.width * 0.03
-            flow:  GridLayout.TopToBottom
-
-            Loader {
-                sourceComponent: transportGroup;
-                onLoaded: {
-                    item.groupLabelText = qsTr("Маршрутки")
-                    item.buttonsCreateRepeaterModel = busesList
-                }
+        Loader {
+            sourceComponent: transportGroup;
+            onLoaded: {
+                item.groupLabelText = qsTr("Маршрутки")
+                item.buttonsCreateRepeaterModel = busesList
             }
+        }
 
-            Loader {
-                sourceComponent: transportGroup;
-                onLoaded: {
-                    item.groupLabelText = qsTr("Тролейбуси")
-                    item.buttonsCreateRepeaterModel = trolleybusesList
-                    item.groupWidthCoef = 0.7
-                }
+        Loader {
+            sourceComponent: transportGroup;
+            onLoaded: {
+                item.groupLabelText = qsTr("Тролейбуси")
+                item.buttonsCreateRepeaterModel = trolleybusesList
+                item.groupWidthCoef = 0.7
             }
         }
     }
