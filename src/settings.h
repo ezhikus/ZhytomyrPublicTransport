@@ -3,12 +3,15 @@
 
 #include <QObject>
 #include <QSettings>
+#include <QCoreApplication>
 
 class Settings : public QSettings {
   Q_OBJECT
 
 public:
-  Settings(const QString & organization, const QString & application = QString(), QObject * parent = 0);
+  explicit Settings(QObject *parent = 0) : QSettings(QSettings::UserScope,
+    QCoreApplication::instance()->organizationName(), QCoreApplication::instance()->applicationName(), parent) {}
+
   virtual ~Settings();
 
   Q_INVOKABLE
@@ -29,5 +32,7 @@ public:
 signals:
   void settingChanged(const QString& key);
 };
+
+Q_DECLARE_METATYPE(Settings*)
 
 #endif // SETTINGS_H
