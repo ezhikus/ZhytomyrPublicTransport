@@ -9,11 +9,10 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-    Settings* settings = new Settings("Zhytomyr", "PublycTransport");
-
+    Settings* settings = new Settings();
     engine.rootContext()->setContextProperty("settings", settings);
+
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
 }
