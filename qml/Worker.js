@@ -1,4 +1,5 @@
 Qt.include("API.js")
+Qt.include("Settings.js")
 
 WorkerScript.onMessage = function(message) {
     function onOk(buses, trolleybuses) {
@@ -39,7 +40,31 @@ function makeRequst(request, okCallback, errCallback) {
         if (doc.readyState === XMLHttpRequest.DONE) {
             var resObj = {}
             if (doc.status == 200) {
-                okCallback(doc.responseText)
+                if (doc.getResponseHeader("Content-Length") === getCachedTransportInfoSize())
+                    okCallback(getCachedTransportInfo);
+                else
+                    makeForcedRequest(request, okCallback, errCallback);
+            } else { // Error
+                errCallback(doc.responseText)
+            }
+        }
+    }
+
+    doc.open("HEAD", request)
+    doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
+    doc.send()
+}
+
+function makeForcedRequest(request, okCallback, errCallback) {
+    var doc = new XMLHttpRequest()
+
+    doc.onreadystatechange = function() {
+        if (doc.readyState === XMLHttpRequest.DONE) {
+            var resObj = {}
+            if (doc.status == 200) {
+                setCachedTransportInfoSize(doc.getResponseHeader("Content-Length"));
+                setCachedTransportInfo(doc.responseText);
+                okCallback(doc.responseText);
             } else { // Error
                 errCallback(doc.responseText)
             }
@@ -50,6 +75,7 @@ function makeRequst(request, okCallback, errCallback) {
     doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
     doc.send()
 }
+
 
 function updateTransportInfo(url, okCallback, failCallback) {
     var buses = [];
