@@ -1,9 +1,10 @@
 #include <QApplication>
 #include <QQmlContext>
 #include <QQmlApplicationEngine>
- #include <QNetworkProxy>
+#include <QNetworkProxy>
 
 #include "settings.h"
+#include "filedownloader.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +15,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     Settings* settings = new Settings();
+    FileDownloader* fileDownloader = new FileDownloader();
+
     engine.rootContext()->setContextProperty("settings", settings);
+    engine.rootContext()->setContextProperty("fileDownloader", fileDownloader);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
