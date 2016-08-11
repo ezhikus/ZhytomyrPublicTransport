@@ -7,7 +7,7 @@ var testApiEndpoints = {
 }
 
 var productinEndpoints = {
-    transportInfoURL: "http://city.dozor.tech/get?t=1",
+    transportInfoURL: "http://city.dozor.tech/data?t=1",
     busStopsGraphURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=11",
     routeInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=7",
     arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
