@@ -1,10 +1,10 @@
 
-function getCachedTransportInfoSize() {
-    return settings.value("CachedTransportInfoSize", 0)
+function getCachedTransportInfoHashsum() {
+    return settings.value("CachedTransportInfoHashsum", "")
 }
 
-function setCachedTransportInfoSize(size) {
-    settings.setValue("CachedTransportInfoSize", size)
+function setCachedTransportInfoHashsum(hashsum) {
+    settings.setValue("CachedTransportInfoHashsum", hashsum)
 }
 
 function getCachedTransportInfo() {
