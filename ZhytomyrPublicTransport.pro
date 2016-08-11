@@ -6,7 +6,8 @@ CONFIG += qml_debug
 
 SOURCES += \
     src/main.cpp \
-    src/settings.cpp
+    src/settings.cpp \
+    src/filedownloader.cpp
 
 RESOURCES += \
     qml/qml.qrc
@@ -38,4 +39,5 @@ DISTFILES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
-    src/settings.h
+    src/settings.h \
+    src/filedownloader.h
