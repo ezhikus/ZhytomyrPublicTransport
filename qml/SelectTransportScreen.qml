@@ -103,65 +103,19 @@ Rectangle {
         s4() + '-' + s4() + s4() + s4();
     }
 
-    Connections {
-            target: fileDownloader
-            /*hashSumErrorSignal: function() {
-                console.log("hashSumErrorSignal");
-            }*/
-            /*onHashSumReceived: function(hashSum) {
-                console.log("hashSum: " + hashSum);
-            }*/
+    function onHashSumReceived(hashSum) {
+        console.log("hashSum: " + hashSum);
     }
 
-    function onHashSumReceived(hashSum) {
-                    console.log("hashSum: " + hashSum);
-                }
+    function onHashSumError() {
+        console.log("Error");
+    }
 
     function makeRequst(requestUrl, okCallback, errCallback) {
         fileDownloader.hashSumReceived.connect(onHashSumReceived);
+        fileDownloader.hashSumReceived.connect(onHashSumReceived);
         fileDownloader.getHashsum(requestUrl);
-        /*if (Settings.getCachedTransportInfoHashsum() === hashSum){
-            okCallback(Settings.getCachedTransportInfo());
-        }else {
-            var transportInfo = fileDownloader.getTransportInfo(requestUrl);
-            if (transportInfo.size() > 0) {
-                Settings.setCachedTransportInfoHashsum(transportInfo.left(1000));
-                Settings.setCachedTransportInfo(transportInfo);
-                okCallback(transportInfo);
-            } else {
-                errCallback("");
-            }
-        }
-
-        doc.open("GET", request)
-        var cookieValue = "gts.web.uuid=" + guid() + "; gts.web.city=zhytomyr";
-        doc.setRequestHeader("Cookie:", cookieValue);
-        doc.setRequestHeader("Accept-Encoding:", "identity");
-        doc.send()*/
     }
-
-    /*function makeForcedRequest(request, okCallback, errCallback) {
-        var doc = new XMLHttpRequest()
-
-        doc.onreadystatechange = function() {
-            if (doc.readyState === XMLHttpRequest.DONE) {
-                var resObj = {}
-                if (doc.status == 200) {
-                    var a = doc.getAllResponseHeaders();
-                    Settings.setCachedTransportInfoSize(doc.getResponseHeader("Content-Length"));
-                    Settings.setCachedTransportInfo(doc.responseText);
-                    okCallback(doc.responseText);
-                } else { // Error
-                    errCallback(doc.responseText)
-                }
-            }
-        }
-
-        doc.open("GET", request)
-        doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
-        doc.send()
-    }*/
-
 
     function updateTransportInfo(url, okCallback, failCallback) {
         var buses = [];

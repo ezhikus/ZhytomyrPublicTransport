@@ -1,5 +1,8 @@
 #include "filedownloader.h"
 
+#include <QUuid>
+#include <QNetworkCookie>
+
 FileDownloader::FileDownloader(QObject *parent) :
  QObject(parent)
 {
@@ -10,6 +13,15 @@ FileDownloader::~FileDownloader() { }
 
 void FileDownloader::getHashsum(QUrl url) {
     QNetworkRequest request(url);
+    QList<QNetworkCookie> cookieList;
+
+    QUuid guid = QUuid::createUuid();
+    QString guidStr = guid.toString();
+    guidStr = guidStr.mid(1, guidStr.length() - 2);
+
+    cookieList.append(QNetworkCookie("gts.web.uuid", guidStr.toUtf8()));
+    cookieList.append(QNetworkCookie("gts.web.city", "zhytomyr"));
+    request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookieList));
 
     reply = m_WebCtrl.get(request);
 
@@ -34,6 +46,7 @@ void FileDownloader::hashSumUpdateProgress(qint64 read, qint64 total)
    QString hashSumStr = QString::fromUtf8(hashSumBinary);
 
    emit hashSumReceived(hashSumStr);
+   reply->abort();
 }
 
 QString FileDownloader::getTransportInfo(QUrl url) {
