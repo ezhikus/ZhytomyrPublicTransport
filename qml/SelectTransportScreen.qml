@@ -93,59 +93,56 @@ Rectangle {
         }
     }
 
-    function guid() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-    }
-
     function onHashSumReceived(hashSum) {
-        console.log("hashSum: " + hashSum);
+        var cachedHashsum = Settings.getCachedTransportInfoHashsum();
+        if (cachedHashsum.length > 0 && cachedHashsum === hashSum) {
+            processCurrentTransportInfo(Settings.getCachedTransportInfo());
+        } else {
+            fileDownloader.transportInfoReceived.connect(processCurrentTransportInfo);
+            fileDownloader.transportInfoError.connect(onTransportInfoError);
+            fileDownloader.getTransportInfo(API.apiEndpoints.transportInfoURL);
+        }
     }
 
     function onHashSumError() {
-        console.log("Error");
+        console.log("Hashsum Error");
     }
 
-    function makeRequst(requestUrl, okCallback, errCallback) {
-        fileDownloader.hashSumReceived.connect(onHashSumReceived);
-        fileDownloader.hashSumReceived.connect(onHashSumReceived);
-        fileDownloader.getHashsum(requestUrl);
+    function onTransportInfoError() {
+        console.log("Data Error");
     }
 
-    function updateTransportInfo(url, okCallback, failCallback) {
+    function processCurrentTransportInfo(transportInfo) {
+        Settings.setCachedTransportInfo(transportInfo);
+        Settings.setCachedTransportInfoHashsum(transportInfo.substring(0, 1000));
+
         var buses = [];
         var trolleybusses = [];
-        makeRequst(url,
-                   function(result) {
-                        var data = JSON.parse(result)
-                        for (var i = 0; i < data.data.length; ++i) {
-                            if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
-                                buses.push({shortName: data.data[i]["sNm"],
-                                                  name: data.data[i]["nm"],
-                                                  id: data.data[i]["id"]});
-                            } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
-                                trolleybusses.push({shortName: data.data[i]["sNm"],
-                                                  name: data.data[i]["nm"],
-                                                  id: data.data[i]["id"]});
-                            }
-                        }
-                        okCallback(buses, trolleybusses)
-                   },
-                   function(result) {
-                       failCallback()
-                   });
+        var data = JSON.parse(transportInfo)
+        for (var i = 0; i < data.data.length; ++i) {
+            if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
+                buses.push({shortName: data.data[i]["sNm"],
+                                  name: data.data[i]["nm"],
+                                  id: data.data[i]["id"]});
+            } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
+                trolleybusses.push({shortName: data.data[i]["sNm"],
+                                  name: data.data[i]["nm"],
+                                  id: data.data[i]["id"]});
+            }
+        }
+    }
+
+    function updateTransportInfo() {
+        fileDownloader.hashSumReceived.connect(onHashSumReceived);
+        fileDownloader.hashSumError.connect(onHashSumError);
+        fileDownloader.getHashsum(API.apiEndpoints.transportInfoURL);
     }
 
 
     function callUpdate() {
         header.state = "Updating";
         //dataUpdateWorker.sendMessage({'url' : API.apiEndpoints.transportInfoURL})
-        updateTransportInfo(API.apiEndpoints.transportInfoURL, function() {}, function() {});
+        updateTransportInfo();
     }
 
     Component.onCompleted: {

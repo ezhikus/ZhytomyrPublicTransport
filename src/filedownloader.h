@@ -18,19 +18,28 @@ class FileDownloader : public QObject
   void getHashsum(QUrl url);
 
   Q_INVOKABLE
-  QString getTransportInfo(QUrl url);
+  void getTransportInfo(QUrl url);
 
  signals:
-  void hashSumErrorSignal();
+  void hashSumError();
   void hashSumReceived(QString hashSum);
+
+  void transportInfoError();
+  void transportInfoReceived(QString transportInfo);
 
  private slots:
   void hashSumError(QNetworkReply::NetworkError err);
   void hashSumUpdateProgress(qint64 read, qint64 total);
 
+  void transportInfoError(QNetworkReply::NetworkError err);
+  void getTransportInfoFinished();
+
  private:
+  QNetworkRequest prepareNetworkRequest(QUrl url);
+
   QNetworkAccessManager m_WebCtrl;
   QNetworkReply *reply;
+  QNetworkReply *reply2;
 };
 
 Q_DECLARE_METATYPE(FileDownloader*)
