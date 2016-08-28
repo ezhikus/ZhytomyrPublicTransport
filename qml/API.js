@@ -15,6 +15,77 @@ var productinEndpoints = {
 
 var apiEndpoints = testApiEndpoints
 
+//////////////////////////////////////////////////////////////////////////////
+
+function onTransportInfoError() {
+     dataUpdateWorker.sendMessage({'type': 'fail'})
+}
+
+function processCurrentTransportInfo(transportInfo) {
+    Settings.setCachedTransportInfo(transportInfo);
+    Settings.setCachedTransportInfoHashsum(transportInfo.substring(0, 1000));
+
+    var buses = [];
+    var trolleybuses = [];
+    var data = JSON.parse(transportInfo)
+    for (var i = 0; i < data.data.length; ++i) {
+        if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
+            buses.push({shortName: data.data[i]["sNm"],
+                              name: data.data[i]["nm"],
+                              id: data.data[i]["id"]});
+        } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
+            trolleybuses.push({shortName: data.data[i]["sNm"],
+                              name: data.data[i]["nm"],
+                              id: data.data[i]["id"]});
+        }
+    }
+
+    dataUpdateWorker.sendMessage({'type': 'clear'})
+    for (var i = 0; i < buses.length; ++i) {
+        dataUpdateWorker.sendMessage({
+                                    'type': 'addBus',
+                                    'shortName': buses[i].shortName,
+                                    'name': buses[i].name,
+                                    'id': buses[i].id
+                                 })
+    }
+
+    for (var i = 0; i < trolleybuses.length; ++i) {
+        dataUpdateWorker.sendMessage({
+                                    'type': 'addTrolleybus',
+                                    'shortName': trolleybuses[i].shortName,
+                                    'name': trolleybuses[i].name,
+                                    'id': trolleybuses[i].id
+                                 })
+    }
+
+    dataUpdateWorker.sendMessage({'type': 'updateCompleted'})
+}
+
+function onHashSumReceived(hashSum) {
+    var cachedHashsum = Settings.getCachedTransportInfoHashsum();
+    if (cachedHashsum.length > 0 && cachedHashsum === hashSum) {
+        processCurrentTransportInfo(Settings.getCachedTransportInfo());
+    } else {
+        fileDownloader.transportInfoReceived.connect(processCurrentTransportInfo);
+        fileDownloader.transportInfoError.connect(onTransportInfoError);
+        fileDownloader.getTransportInfo(API.apiEndpoints.transportInfoURL);
+    }
+}
+
+function onHashSumError() {
+     dataUpdateWorker.sendMessage({'type': 'fail'})
+}
+
+function updateTransportInfo() {
+    fileDownloader.hashSumReceived.connect(onHashSumReceived);
+    fileDownloader.hashSumError.connect(onHashSumError);
+    fileDownloader.getHashsum(API.apiEndpoints.transportInfoURL);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+
 function updateRouteInfo(routeId, okCallback, failCallback) {
     function updateRoutesInfo_(result) {
         var data = JSON.parse(result);

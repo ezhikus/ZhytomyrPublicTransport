@@ -58,10 +58,14 @@ void FileDownloader::transportInfoError(QNetworkReply::NetworkError err)
 
 void FileDownloader::getTransportInfoFinished()
 {
+    if (reply2->isFinished() == false)
+        return;
+
     QByteArray data = reply2->readAll();
     QString transportInfoStr = QString::fromUtf8(data);
 
-    if (transportInfoStr.length() > 0)
+    int strLen = transportInfoStr.length();
+    if (strLen > 0)
     {
         emit transportInfoReceived(transportInfoStr);
     }
