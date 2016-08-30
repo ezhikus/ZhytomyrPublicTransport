@@ -38,7 +38,8 @@ void FileDownloader::hashSumUpdateProgress(qint64 read, qint64 total)
    QByteArray hashSumBinary = reply->read(2000);
    QString hashSumStr = QString::fromUtf8(hashSumBinary).left(1000);
 
-   emit hashSumReceived(hashSumStr);
+   if (hashSumStr.length() > 0)
+       emit hashSumReceived(hashSumStr);
    reply->abort();
 }
 
