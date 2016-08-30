@@ -9,8 +9,12 @@ class Settings : public QSettings {
   Q_OBJECT
 
 public:
-  explicit Settings(QObject *parent = 0) : QSettings(QSettings::UserScope,
-    QCoreApplication::instance()->organizationName(), QCoreApplication::instance()->applicationName(), parent) {}
+  explicit Settings(QObject *parent = 0) :
+        QSettings(QSettings::IniFormat,
+                  QSettings::UserScope,
+                  "Zhytomyr",
+                  QCoreApplication::instance()->applicationName(),
+                  parent) {}
 
   virtual ~Settings();
 
