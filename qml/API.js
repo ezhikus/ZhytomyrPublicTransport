@@ -1,16 +1,9 @@
 var testApiEndpoints = {
     transportInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/2.0/1.txt",
-    busStopsGraphURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/BusStopsGraph.txt",
-    routeInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/RouteInfo.txt",
-    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/Arrivallnfo.txt?param=",
-    arrivalInfoEmptyStubURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/ArrivalnfoEmptyStub.txt?param="
 }
 
 var productinEndpoints = {
     transportInfoURL: "http://city.dozor.tech/data?t=1",
-    busStopsGraphURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=11",
-    routeInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=7",
-    arrivalInfoURL: "http://zhytomyr.dozor-gps.com.ua/get_data?type=12&param="
 }
 
 var apiEndpoints = testApiEndpoints
