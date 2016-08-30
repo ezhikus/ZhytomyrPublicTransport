@@ -2,6 +2,7 @@
 
 #include <QUuid>
 #include <QNetworkCookie>
+#include <QNetworkCookieJar>
 
 FileDownloader::FileDownloader(QObject *parent) :
  QObject(parent)
@@ -31,7 +32,7 @@ void FileDownloader::hashSumError(QNetworkReply::NetworkError err)
 
 void FileDownloader::hashSumUpdateProgress(qint64 read, qint64 total)
 {
-   if (read < 1000)
+   if (read < 2000)
        return;
 
    QByteArray hashSumBinary = reply->read(2000);
@@ -77,6 +78,8 @@ void FileDownloader::getTransportInfoFinished()
 
 QNetworkRequest FileDownloader::prepareNetworkRequest(QUrl url)
 {
+    m_WebCtrl.setCookieJar(new QNetworkCookieJar());
+
     QNetworkRequest request(url);
     QList<QNetworkCookie> cookieList;
 
