@@ -24,7 +24,9 @@ void FileDownloader::getHashsum(QUrl url) {
 void FileDownloader::hashSumError(QNetworkReply::NetworkError err)
 {
     reply->deleteLater();
-    emit hashSumError();
+
+    if (err != QNetworkReply::OperationCanceledError) // this is normal, we actually abort operation
+        emit hashSumError();
 }
 
 void FileDownloader::hashSumUpdateProgress(qint64 read, qint64 total)
