@@ -24,11 +24,11 @@ function processCurrentTransportInfo(transportInfo) {
     for (var i = 0; i < data.data.length; ++i) {
         if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
             buses.push({shortName: data.data[i]["sNm"],
-                              name: data.data[i]["nm"],
+                              name: data.data[i]["nm"][0],
                               id: data.data[i]["id"]});
         } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
             trolleybuses.push({shortName: data.data[i]["sNm"],
-                              name: data.data[i]["nm"],
+                              name: data.data[i]["nm"][0],
                               id: data.data[i]["id"]});
         }
     }
@@ -80,53 +80,25 @@ function updateTransportInfo() {
 
 
 function updateRouteInfo(routeId, okCallback, failCallback) {
-    function updateRoutesInfo_(result) {
-        var data = JSON.parse(result);
-        var routesInfo = []
-
-        for (var i = 0; i < data.values.length; ++i) {
-            routesInfo.push({
-                             id: data.values[i]["id"],
-                             routeId: data.values[i]["routeId"],
-                             internalNumber: data.values[i]["internalNumber"],
-                             name: data.values[i]["name"]
-                         });
-        }
-
-        var routeInfo = []
-        for (i = 0; i < routesInfo.length; ++i) {
-            if (routesInfo[i].routeId !== routeId)
-                continue;
-            routeInfo.push(routesInfo[i]);
-        }
-
-        routeInfo.sort(function(a,b) { return a.internalNumber - b.internalNumber});
-        routeInfoModel.clear();
-        for (i = 0; i < routeInfo.length; ++i) {
-            var paramString = ''
-            if (i === 0)
-                paramString = routeInfo[i].id;
-            else if (i === 1)
-                paramString = routeInfo[i - 1].id + '-' + routeInfo[i].id;
-            else
-                paramString = routeInfo[i - 2].id + '-' +routeInfo[i - 1].id + '-' + routeInfo[i].id;
-
-            routeInfoModel.append({
-                            busStopId: routeInfo[i].id,
-                            routeId: routeInfo[i].routeId,
-                            internalNumber: routeInfo[i].internalNumber,
-                            name: routeInfo[i].name,
-                            busStopParamString: paramString.toString()
-                        })
-        }
-        okCallback();
-    };
-
     routeInfoModel.clear()
+    var data = JSON.parse(Settings.getCachedTransportInfo());
 
-    makeRequst(apiEndpoints.routeInfoURL,
-               updateRoutesInfo_,
-               failCallback);
+    for (var i = 0; i < data.data.length; ++i) {
+        if (data.data[i]["id"] === routeId) {
+            for (var j = 0; j < data.data[i]["zns"].length; ++j) {
+                routeInfoModel.append({
+                                busStopId: data.data[i]["zns"][j]["id"],
+                                routeId: routeId,
+                                name: data.data[i]["zns"][j]["nm"][0]
+                                });
+            }
+        }
+    }
+
+    if (routeInfoModel.count > 0)
+        okCallback();
+    else
+        failCallback();
 }
 
 
@@ -149,7 +121,6 @@ function updateBusStopInfo(busStopParamString, okCallback, failCallback) {
                updateBusStopInfo_,
                failCallback)
 }
-
 
 function makeRequst(request, okCallback, errCallback) {
     var doc = new XMLHttpRequest()

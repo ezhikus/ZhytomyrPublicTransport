@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.3
 
 import "API.js" as API
+import "Settings.js" as Settings
 
 Rectangle {
     id: routeScreen
@@ -67,7 +68,7 @@ Rectangle {
                     item: busStopScreen,
                     properties:{
                         routeShortName: routeScreen.routeShortName,
-                        busStopParamString: busStopParamString,
+                        busStopId: busStopId,
                         busStopName: name
                     }
                 })
