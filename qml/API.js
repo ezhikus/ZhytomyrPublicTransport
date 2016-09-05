@@ -1,9 +1,11 @@
 var testApiEndpoints = {
     transportInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/2.0/1.txt",
+    arrivalInfoURL: "https://raw.githubusercontent.com/ezhikus/ZhytomyrPublicTransport/master/testData/2.0/3.txt?p="
 }
 
 var productinEndpoints = {
     transportInfoURL: "http://city.dozor.tech/data?t=1",
+    arrivalInfoURL: "http://city.dozor.tech/data?t=3&p="
 }
 
 var apiEndpoints = testApiEndpoints
@@ -102,13 +104,13 @@ function updateRouteInfo(routeId, okCallback, failCallback) {
 }
 
 
-function updateBusStopInfo(busStopParamString, okCallback, failCallback) {
+function updateBusStopInfo(busStopId, okCallback, failCallback) {
     function updateBusStopInfo_(result) {
         var data = JSON.parse(result);
 
-        for (var i = 0; i < data.values.length; ++i) {
+        for (var i = 0; i < data.data.a1.length; ++i) {
             busStopInfo.append({
-                                arrivalTime: data.values[i].arrivalIntervalTime
+                                arrivalTime: data.data.a1[i]["t"]
                              })
         }
 
@@ -117,9 +119,19 @@ function updateBusStopInfo(busStopParamString, okCallback, failCallback) {
 
     busStopInfo.clear()
 
-    makeRequst(apiEndpoints.arrivalInfoURL + busStopParamString,
+    makeRequst(apiEndpoints.arrivalInfoURL + busStopId,
                updateBusStopInfo_,
                failCallback)
+}
+
+function getGuid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }
 
 function makeRequst(request, okCallback, errCallback) {
@@ -137,6 +149,6 @@ function makeRequst(request, okCallback, errCallback) {
     }
 
     doc.open("GET", request)
-    doc.setRequestHeader("Cookie:", "gts.web.guid=-1")
+    doc.setRequestHeader("Cookie:",  "gts.web.uuid=" + getGuid() + ";gts.web.city=zhytomyr;")
     doc.send()
 }

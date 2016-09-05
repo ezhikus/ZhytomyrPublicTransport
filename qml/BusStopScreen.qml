@@ -7,13 +7,13 @@ Rectangle {
     id: bustStopScreen
 
     property string routeShortName: "37"
-    property string busStopParamString
+    property string busStopId
     property string busStopName: "Тест тест тест тест"
 
     function callUpdate() {
         header.state = "Updating";
         noTransportLabel.visible = false;
-        API.updateBusStopInfo(busStopParamString,
+        API.updateBusStopInfo(busStopId,
             function() {
                 header.state = "Normal";
                 if (busStopInfo.count == 0)
@@ -73,7 +73,7 @@ Rectangle {
             delegate: Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         property bool isItNearest: index === 0
-                        text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + Math.floor(arrivalTime / 60).toString() + " хв " + Math.floor(arrivalTime % 60).toString() + " сек"
+                        text: "До " + (isItNearest ? "прибуття" : "наступного") + ": " + arrivalTime + " хв "
                         font.pixelSize: bustStopScreen.height * 0.04
                         font.bold: isItNearest
                       }
