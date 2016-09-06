@@ -8,7 +8,7 @@ var productinEndpoints = {
     arrivalInfoURL: "http://city.dozor.tech/data?t=3&p="
 }
 
-var apiEndpoints = testApiEndpoints
+var apiEndpoints = productinEndpoints
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -24,11 +24,11 @@ function processCurrentTransportInfo(transportInfo) {
     var trolleybuses = [];
     var data = JSON.parse(transportInfo)
     for (var i = 0; i < data.data.length; ++i) {
-        if (data.data[i]["inf"] === "{1}" && data.data[i]["sNm"].length !== 0) {
+        if (data.data[i]["inf"].indexOf("{1}") === 0 && data.data[i]["sNm"].length !== 0) {
             buses.push({shortName: data.data[i]["sNm"],
                               name: data.data[i]["nm"][0],
                               id: data.data[i]["id"]});
-        } else if (data.data[i]["inf"] === "{2}" && data.data[i]["sNm"].length !== 0) {
+        } else if (data.data[i]["inf"].indexOf("{2}") === 0 && data.data[i]["sNm"].length !== 0) {
             trolleybuses.push({shortName: data.data[i]["sNm"],
                               name: data.data[i]["nm"][0],
                               id: data.data[i]["id"]});
