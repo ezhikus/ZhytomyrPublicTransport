@@ -4,8 +4,8 @@ var testApiEndpoints = {
 }
 
 var productinEndpoints = {
-    transportInfoURL: "http://city.dozor.tech/data?t=1",
-    arrivalInfoURL: "http://city.dozor.tech/data?t=3&p="
+    transportInfoURL: "https://city.dozor.tech/data?t=1",
+    arrivalInfoURL: "https://city.dozor.tech/data?t=3&p="
 }
 
 var apiEndpoints = productinEndpoints

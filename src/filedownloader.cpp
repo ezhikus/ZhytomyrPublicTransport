@@ -46,6 +46,7 @@ void FileDownloader::hashSumUpdateProgress(qint64 read, qint64 total)
 void FileDownloader::getTransportInfo(QUrl url)
 {
     QNetworkRequest request = prepareNetworkRequest(url);
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     reply2 = m_WebCtrl.get(request);
 
     connect(reply2, SIGNAL(error(QNetworkReply::NetworkError)),
@@ -82,6 +83,7 @@ QNetworkRequest FileDownloader::prepareNetworkRequest(QUrl url)
     m_WebCtrl.setCookieJar(new QNetworkCookieJar());
 
     QNetworkRequest request(url);
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     QList<QNetworkCookie> cookieList;
 
     QUuid guid = QUuid::createUuid();
