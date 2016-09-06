@@ -114,6 +114,12 @@ function updateBusStopInfo(busStopId, okCallback, failCallback) {
                              })
         }
 
+        for (var i = 0; i < data.data.a2.length; ++i) {
+            busStopInfo.append({
+                                arrivalTime: data.data.a2[i]["t"]
+                             })
+        }
+
         okCallback()
     }
 
