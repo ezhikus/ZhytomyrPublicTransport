@@ -78,8 +78,8 @@ Rectangle {
 
             PropertyChanges {
                 target: rotationAnimation
-                loops: Animation.Infinite
                 running: true
+                loops: Animation.Infinite
             }
         }
     ]
