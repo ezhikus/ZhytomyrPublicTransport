@@ -43,7 +43,8 @@ Rectangle {
             id: busStopLabel
             text: busStopName
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: bustStopScreen.height * 0.05
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: parent.width * 0.065
         }
 
         Text {
